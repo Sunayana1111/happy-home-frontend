@@ -2,7 +2,7 @@
     padding: 0;
 
     .homecare-name {
-        font-size: 25px;
+        font-size: 24px;
         color: #FFFFFF;
         font-family: "Bevan", serif;
     }
@@ -16,12 +16,21 @@
     }
 
     .nav-item {
-        font-size: 25px;
+        font-size: 24px;
         font-weight: 600;
         padding: 2rem;
 
         .nav-link {
             color: #FFFFFF;
         }
+    }
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 1346px) {
+
+    .nav-item,
+    .homecare-name {
+        font-size: 15px !important;
     }
 }

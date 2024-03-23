@@ -1,0 +1,11 @@
+.dashboard-container {
+    padding: 5rem 0;
+
+    &__introduction {
+        padding-right: 13rem;
+
+        p {
+            font-size: 25px;
+        }
+    }
+}
