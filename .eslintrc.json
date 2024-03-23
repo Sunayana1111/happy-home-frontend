@@ -18,11 +18,5 @@
   "plugins": ["react", "react-hooks"],
   "rules": {
     "react/react-in-jsx-scope": "off"
-  },
-  "eslint.validate": [
-    {
-      "language": "javascript",
-      "autoFix": true
-    }
-  ]
+  }
 }

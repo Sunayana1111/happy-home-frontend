@@ -8,7 +8,7 @@ const Header = () => {
           <a className="navbar-brand" href="#">
             <img src={HomeCareLogo} alt="Bootstrap" width="70" height="70" />
           </a>
-          <a class="navbar-brand" href="#">
+          <a className="navbar-brand" href="#">
             Happy Home
           </a>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
