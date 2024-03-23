@@ -6,6 +6,10 @@ import Header from "./components/Header";
 import Dashboard from "./containers/Dashboard";
 import LoginPage from "./containers/LoginPage";
 import Footer from "./components/Footer";
+import LabServicesPage from "./containers/LabServicesPage";
+import CaregivingPage from "./containers/CaregivingPage";
+import AboutUsPage from "./containers/AboutUsPage";
+import HelpPage from "./containers/HelpPage";
 
 const App = () => {
   return (
@@ -15,6 +19,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/caregiving" element={<CaregivingPage />} />
+          <Route path="/lab-services" element={<LabServicesPage />} />
+          <Route path="/about-us" element={<AboutUsPage />} />
+          <Route path="/help" element={<HelpPage />} />
         </Routes>
         <Footer />
       </div>
