@@ -22,6 +22,10 @@ const Dashboard = () => {
                 At Happy Home, we understand the unique needs and desires of the elderly,
                 and we are committed to creating a nurturing environment that feels like home.
             </p>
+            <div className="d-flex align-items-center">
+                <a className="btn btn-primary btn-lg" href="/login" role="button">Sign-In</a>
+                <span className="px-3 dashboard-container__introduction__already_account_text"><a href="/login">Already have an account?</a></span>
+            </div>
         </div>
     </div>
 }
