@@ -4,7 +4,7 @@ import './style.scss'
 
 const Dashboard = () => {
     return <div className="row dashboard-container gx-5">
-        <div className="col-md-7 dashboard-container__image float-end">
+        <div className="col-md-7 dashboard-container__image">
             {/* <img src={HomeCareDashbaordImg} className="rounded float-end" alt="happy-home-dashboard-img" height={500} /> */}
             <CarouselImage />
         </div>

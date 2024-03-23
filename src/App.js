@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import 'bootstrap/dist/css/bootstrap.min.css'
 import Header from "./components/Header";
 import Dashboard from "./containers/Dashboard";
 import LoginPage from "./containers/LoginPage";
