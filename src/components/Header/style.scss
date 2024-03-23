@@ -1,0 +1,27 @@
+.navbar {
+    padding: 0;
+
+    .homecare-name {
+        font-size: 25px;
+        color: #FFFFFF;
+        font-family: "Bevan", serif;
+    }
+
+    .main-header-nav {
+        background: darkblue;
+
+        .main-logo {
+            padding-left: 5rem;
+        }
+    }
+
+    .nav-item {
+        font-size: 25px;
+        font-weight: 600;
+        padding: 2rem;
+
+        .nav-link {
+            color: #FFFFFF;
+        }
+    }
+}
