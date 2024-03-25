@@ -1,35 +1,35 @@
 .dashboard-container {
-    padding: 0 3.5rem;
+  padding: 0 3.5rem;
 
-    &__introduction {
-        font-family: "Cormorant Garamond", sans-serif;
-        padding-right: 8.8%;
+  &__introduction {
+    font-family: "Cormorant Garamond", sans-serif;
+    padding: 0 8.8%;
 
-        h1 {
-            font-size: 3.5rem;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-        }
-
-        h1,
-        h2 {
-            font-weight: 600;
-        }
-
-        p {
-            font-size: 26px;
-            text-align: justify;
-        }
-
-        .btn-lg {
-            width: 30%;
-            font-size: 24px;
-        }
-
-        &__already_account_text {
-            font-size: 24px;
-        }
+    h1 {
+      font-size: 3rem;
     }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    h1,
+    h2 {
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 20px;
+      text-align: justify;
+    }
+
+    .btn-lg {
+      width: 30%;
+      font-size: 20px;
+    }
+
+    &__already_account_text {
+      font-size: 20px;
+    }
+  }
 }

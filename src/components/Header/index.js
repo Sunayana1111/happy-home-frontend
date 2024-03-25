@@ -8,7 +8,7 @@ const Header = () => {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid main-header-nav overflow-auto">
             <a className="navbar-brand main-logo" href="#">
-              <img src={HomeCareLogo} alt="Happy Home" width="108" height="108" className="d-inline-block align-text-top" />
+              <img src={HomeCareLogo} alt="Happy Home" width="88" height="88" className="d-inline-block align-text-top" />
             </a>
             <a className="navbar-brand homecare-name">
               Happy Home
