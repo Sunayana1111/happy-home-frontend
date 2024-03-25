@@ -1,23 +1,38 @@
 import HomeCareLogo from "../../assets/images/home.png";
-import './style.scss'
+import "./style.scss";
 
 const Header = () => {
   return (
     <>
       <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg fixed-top bg-body-tertiary">
           <div className="container-fluid main-header-nav overflow-auto">
             <a className="navbar-brand main-logo" href="#">
-              <img src={HomeCareLogo} alt="Happy Home" width="88" height="88" className="d-inline-block align-text-top" />
+              <img
+                src={HomeCareLogo}
+                alt="Happy Home"
+                width="88"
+                height="88"
+                className="d-inline-block align-text-top"
+              />
             </a>
-            <a className="navbar-brand homecare-name">
-              Happy Home
-            </a>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a className="navbar-brand homecare-name">Happy Home</a>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
               <span className="navbar-toggler-icon"></span>
             </button>
 
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
                   <a className="nav-link active" aria-current="page" href="/">
