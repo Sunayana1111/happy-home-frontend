@@ -1,4 +1,4 @@
-import PageNotFoundImg from "../../assets/images/login9.jpg";
+import PageNotFoundImg from "../../assets/images/pagenotfound.jpg";
 import "./style.scss";
 
 const PageNotFound = () => {

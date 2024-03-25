@@ -74,7 +74,7 @@ const Dashboard = () => {
                     grooming, toileting, and eating.
                   </p>
                   <a
-                    href="#!"
+                    href="/about-us"
                     className="fw-bold text-decoration-none link-primary"
                   >
                     Learn More
@@ -117,7 +117,7 @@ const Dashboard = () => {
                     residents stay engaged having social connections.
                   </p>
                   <a
-                    href="#!"
+                    href="/about-us"
                     className="fw-bold text-decoration-none link-primary"
                   >
                     Learn More
@@ -158,7 +158,7 @@ const Dashboard = () => {
                     residents dietary needs and preferences.
                   </p>
                   <a
-                    href="#!"
+                    href="/about-us"
                     className="fw-bold text-decoration-none link-primary"
                   >
                     Learn More
@@ -201,7 +201,7 @@ const Dashboard = () => {
                     and monitoring health conditions.
                   </p>
                   <a
-                    href="#!"
+                    href="/about-us"
                     className="fw-bold text-decoration-none link-primary"
                   >
                     Learn More
