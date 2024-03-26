@@ -2,8 +2,10 @@
 import CarouselImage from "../../components/CarouselImage";
 import MealSvg from "../../assets/images/meal.svg";
 import "./style.scss";
+import { useAuth } from "../../context/AuthContext";
 
 const Dashboard = () => {
+  const { token } = useAuth();
   return (
     <>
       <div className="row dashboard-container gx-5">
@@ -25,14 +27,18 @@ const Dashboard = () => {
             elderly, and we are committed to creating a nurturing environment
             that feels like home.
           </p>
-          <div className="d-flex align-items-center">
-            <a className="btn btn-primary btn-lg" href="/login" role="button">
-              Sign-In
-            </a>
-            <span className="px-3 dashboard-container__introduction__already_account_text">
-              <a href="/login">Already have an account?</a>
-            </span>
-          </div>
+          {token ? (
+            <div className="d-flex align-items-center">
+              <a className="btn btn-primary btn-lg" href="/login" role="button">
+                Sign-In
+              </a>
+              <span className="px-3 dashboard-container__introduction__already_account_text">
+                <a href="/login">Already have an account?</a>
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <section className="p-5 py-xl-8">

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import "./style.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/http-request";
 import { toast } from "react-toastify";
@@ -13,9 +13,16 @@ const INITIAL_VALUE = {
 };
 
 const LoginPage = () => {
+  const { token } = useAuth();
   const navigate = useNavigate();
   const { loginSuccess } = useAuth();
   const [formValue, setFormValue] = useState(INITIAL_VALUE);
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, []);
 
   const handleOnChange = (event) => {
     setFormValue({ ...formValue, [event.target.name]: event.target.value });

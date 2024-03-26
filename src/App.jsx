@@ -22,10 +22,10 @@ const App = () => {
   const { pathname } = location;
   const hasHeaderFooter = !["/login", "/register"].includes(pathname);
   return (
-    <div className="App">
-      <ToastContainer />
-      <div className="container-fluid">
-        <AuthProvider>
+    <AuthProvider>
+      <div className="App">
+        <ToastContainer />
+        <div className="container-fluid">
           {hasHeaderFooter ? <Header /> : ""}
           <Routes>
             <Route path="/" element={<Dashboard />} />
@@ -38,9 +38,9 @@ const App = () => {
             <Route path="*" element={<PageNotFound />} />
           </Routes>
           {hasHeaderFooter ? <Footer /> : ""}
-        </AuthProvider>
+        </div>
       </div>
-    </div>
+    </AuthProvider>
   );
 };
 
