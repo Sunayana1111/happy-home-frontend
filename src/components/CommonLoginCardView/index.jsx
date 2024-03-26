@@ -28,7 +28,7 @@ const CommonLoginCardView = ({ title, subTitle, children }) => {
                 />
               </div>
               <h1 className="card-title">{title}</h1>
-              <p className="mb-5">{subTitle}</p>
+              {subTitle ? <p className="mb-5">{subTitle}</p> : ""}
               {children}
             </div>
           </div>
