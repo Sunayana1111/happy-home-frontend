@@ -1,22 +1,27 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 // import { registerUser } from "../../services/http-request";
+import { useNavigate } from "react-router-dom";
 import CommonLoginCardView from "../../components/CommonLoginCardView";
 import { registerUser } from "../../services/http-request";
+import { toast } from "react-toastify";
+
+const INITIAL_VALUE = {
+  email: "",
+  username: "",
+  first_name: "",
+  last_name: "",
+  password: "",
+  password2: "",
+  gender: "",
+  age: 0,
+  phone: "",
+  address: "",
+};
 
 const RegisterPage = () => {
-  const [formValue, setFormValue] = useState({
-    email: "",
-    username: "",
-    first_name: "",
-    last_name: "",
-    password: "",
-    password2: "",
-    gender: "",
-    age: 0,
-    phone: "",
-    address: "",
-  });
+  const navigate = useNavigate();
+  const [formValue, setFormValue] = useState(INITIAL_VALUE);
 
   const handleOnChange = (event) => {
     setFormValue({ ...formValue, [event.target.name]: event.target.value });
@@ -31,14 +36,16 @@ const RegisterPage = () => {
         })
         .then(function (data) {
           if (data.message) {
-            console.log(data.message);
-          } else if (Object.keys(data) > 0) {
-            console.log(data);
+            toast.success(JSON.stringify(data.message));
+            setFormValue(INITIAL_VALUE);
+            navigate("/login");
+          } else {
+            toast.error(JSON.stringify(data));
           }
         });
     } catch (error) {
-      debugger;
       console.error("Error:", error);
+      toast.error(JSON.stringify(error));
     }
   };
 
@@ -46,9 +53,6 @@ const RegisterPage = () => {
     <CommonLoginCardView title="User Registration" subTitle="">
       <form onSubmit={onSubmitHandler}>
         <div className="mb-3 d-flex">
-          <button onClick={() => notifySuccess("make toast success")}>
-            Make me a toast
-          </button>
           <div className="col-6">
             <label className="form-label">First Name</label>
             <input

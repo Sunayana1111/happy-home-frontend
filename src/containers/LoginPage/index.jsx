@@ -1,24 +1,46 @@
 /* eslint-disable react/no-unescaped-entities */
 import "./style.scss";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/http-request";
+import { toast } from "react-toastify";
 import CommonLoginCardView from "../../components/CommonLoginCardView";
+import { useAuth } from "../../context/AuthContext";
+
+const INITIAL_VALUE = {
+  username: "",
+  password: "",
+};
 
 const LoginPage = () => {
-  const [formValue, setFormValue] = useState({
-    username: "",
-    password: "",
-  });
+  const navigate = useNavigate();
+  const { loginSuccess } = useAuth();
+  const [formValue, setFormValue] = useState(INITIAL_VALUE);
 
   const handleOnChange = (event) => {
     setFormValue({ ...formValue, [event.target.name]: event.target.value });
   };
 
-  const onSubmitHandler = () => {
-    debugger;
-    console.log(formValue, "hello");
-    const response = loginUser();
-    console.log(response);
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      loginUser(formValue)
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (data) {
+          if (data.token) {
+            loginSuccess(data.token);
+            toast.success("User LoggedIn Successfully!");
+            navigate("/");
+          } else {
+            toast.error(JSON.stringify(data));
+          }
+        });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(JSON.stringify(error));
+    }
   };
 
   return (

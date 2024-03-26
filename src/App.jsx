@@ -14,6 +14,8 @@ import HelpPage from "./containers/HelpPage";
 import PageNotFound from "./containers/PageNotFound";
 import RegisterPage from "./containers/RegisterPage";
 import { AuthProvider } from "./context/AuthContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const location = useLocation();
@@ -21,6 +23,7 @@ const App = () => {
   const hasHeaderFooter = !["/login", "/register"].includes(pathname);
   return (
     <div className="App">
+      <ToastContainer />
       <div className="container-fluid">
         <AuthProvider>
           {hasHeaderFooter ? <Header /> : ""}
