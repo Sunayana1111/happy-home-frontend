@@ -3,7 +3,6 @@ import { useState } from "react";
 // import { registerUser } from "../../services/http-request";
 import CommonLoginCardView from "../../components/CommonLoginCardView";
 import { registerUser } from "../../services/http-request";
-// import axios from "axios";
 
 const RegisterPage = () => {
   const [formValue, setFormValue] = useState({
@@ -26,15 +25,19 @@ const RegisterPage = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = registerUser(formValue);
-      if (response.message) {
-        // Request was successful
-        console.log("Data successfully sent");
-      } else {
-        // Request failed
-        console.error("Error sending data");
-      }
+      registerUser(formValue)
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (data) {
+          if (data.message) {
+            console.log(data.message);
+          } else if (Object.keys(data) > 0) {
+            console.log(data);
+          }
+        });
     } catch (error) {
+      debugger;
       console.error("Error:", error);
     }
   };
@@ -43,6 +46,9 @@ const RegisterPage = () => {
     <CommonLoginCardView title="User Registration" subTitle="">
       <form onSubmit={onSubmitHandler}>
         <div className="mb-3 d-flex">
+          <button onClick={() => notifySuccess("make toast success")}>
+            Make me a toast
+          </button>
           <div className="col-6">
             <label className="form-label">First Name</label>
             <input
