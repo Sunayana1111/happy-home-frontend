@@ -1,4 +1,4 @@
-import AboutUsImage from "../../assets/images/team2.jpg";
+import HelpUsImage from "../../assets/images/help2.jpg";
 
 const HelpPage = () => {
   return (
@@ -6,11 +6,14 @@ const HelpPage = () => {
       <div
         className="col-12 main-about-us"
         style={{
-          backgroundImage: `url(${AboutUsImage})`,
+          backgroundImage: `url(${HelpUsImage})`,
+          height: "40vh",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       />
       <div className="col-8 m-4">
-        <div className="jumbotron rounded text-primary">
+        <div className="jumbotron rounded text-success">
           <div className="col-12 px-0">
             <h1 className="display-4 font-italic">
               Frequently Asked Questions!
