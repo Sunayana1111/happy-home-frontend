@@ -2,8 +2,35 @@ import LabImg1 from "../../assets/images/lab4.jpg";
 import LabImg2 from "../../assets/images/lab5.jpg";
 import LabImg3 from "../../assets/images/lab7.jpg";
 import LabImg4 from "../../assets/images/lab6.jpg";
+// import { useEffect } from "react";
+// import { getCookie } from "../../context/setCookie";
+// import { getAllLabServices } from "../../services/http-request";
+// import { toast } from "react-toastify";
 
 const LabServicesPage = () => {
+  // const token = getCookie("token");
+
+  // useEffect(() => {
+  //   if (token) {
+  //     try {
+  //       getAllLabServices()
+  //         .then((res) => {
+  //           return res.json();
+  //         })
+  //         .then((data) => {
+  //           if (data) {
+  //             toast.success("get lab services Successfully!");
+  //           } else {
+  //             toast.error(JSON.stringify(data));
+  //           }
+  //         });
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //       toast.error(JSON.stringify(error));
+  //     }
+  //   }
+  // }, []);
+
   return (
     <>
       <div className="container parent-container">
