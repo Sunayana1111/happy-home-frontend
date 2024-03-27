@@ -1,21 +1,25 @@
+import LabImg1 from "../../assets/images/lab4.jpg";
+import LabImg2 from "../../assets/images/lab2.jpg";
+import LabImg3 from "../../assets/images/lab8.jpg";
 import "./style.scss";
 
 const CaregivingPage = () => {
   return (
     <>
-      <div className="container  care-giver-container">
+      <div className="container care-giver-container">
         <div className="row justify-content-md-center">
           <div className="col-12">
             <h1 className="text-center fw-bold text-uppercase d-flex justify-content-center">
               <span className="pr-5">Caregivers</span>
-
-              <button
+              {/* <button
                 type="button"
                 className="btn btn-lg btn-primary mb-3 mb-md-4 mb-xl-5"
+                data-bs-toggle="modal"
+                data-bs-target="#addNewCareGiver"
               >
                 <i className="bi bi-person-plus pr-5"></i>
                 Add New Caregiver
-              </button>
+              </button> */}
             </h1>
             <p className="display-5 mb-4 mb-md-5 text-center">
               {" "}
@@ -28,7 +32,7 @@ const CaregivingPage = () => {
       </div>
 
       <div className="container overflow-hidden">
-        <div className="row gy-4 gy-md-0 gx-xxl-5">
+        <div className="row gy-4 gy-md-0 gx-xxl-5 mb-5">
           <div className="col-12 col-md-4">
             <div className="card border-0 border-bottom border-primary shadow-sm">
               <div className="card-body p-4 p-xxl-5">
@@ -36,7 +40,7 @@ const CaregivingPage = () => {
                   <img
                     className="img-fluid rounded rounded-circle mb-4 border border-5"
                     loading="lazy"
-                    src="./assets/img/testimonial-img-1.jpg"
+                    src={LabImg1}
                     alt=""
                   />
                   <figcaption>
@@ -46,14 +50,23 @@ const CaregivingPage = () => {
                       data-bsb-star-off="0"
                     ></div>
                     <blockquote className="bsb-blockquote-icon mb-4">
-                      Nam ultricies, ex lacinia dapibus faucibus, sapien ipsum
-                      euismod massa, at aliquet erat turpis quis diam. className
-                      aptent taciti sociosqu ad litora torquent per conubia
-                      nostra, per inceptos himenaeos.
+                      Dr. Vikram Singh, Ph.D., is a distinguished medical
+                      professional with over 15 years of experience, having
+                      obtained her doctoral degree from renowned medical
+                      institutions including Johns Hopkins University. Dr.
+                      Vikrams illustrious career spans a diverse range of
+                      medical specialties, showcasing her exceptional breadth of
+                      knowledge and expertise.
                     </blockquote>
-                    <h4 className="mb-2">Luna John</h4>
-                    <h5 className="fs-6 text-secondary mb-0">UX Designer</h5>
+                    <h4 className="mb-2">Dr. Vikram Singh</h4>
+                    <h5 className="fs-6 text-secondary mb-0">
+                      Orthopedic Surgeons
+                    </h5>
                   </figcaption>
+                  <button type="button" className="btn btn-lg btn-success mt-5">
+                    <i className="bi bi-person-plus pr-5"></i>
+                    Book Appointment
+                  </button>
                 </figure>
               </div>
             </div>
@@ -65,7 +78,7 @@ const CaregivingPage = () => {
                   <img
                     className="img-fluid rounded rounded-circle mb-4 border border-5"
                     loading="lazy"
-                    src="./assets/img/testimonial-img-2.jpg"
+                    src={LabImg2}
                     alt=""
                   />
                   <figcaption>
@@ -75,16 +88,21 @@ const CaregivingPage = () => {
                       data-bsb-star-off="1"
                     ></div>
                     <blockquote className="bsb-blockquote-icon mb-4">
-                      Nam ultricies, ex lacinia dapibus faucibus, sapien ipsum
-                      euismod massa, at aliquet erat turpis quis diam. className
-                      aptent taciti sociosqu ad litora torquent per conubia
-                      nostra, per inceptos himenaeos.
+                      Dr. Sunil Shrestha, Ph.D., is an experienced medical
+                      professional who obtained his doctoral degree from Harvard
+                      medical school. He has worked for more than 10 years in
+                      various hospitals and possesses brilliant medical
+                      knowledge and a penchant for modern research in the
+                      medical field. Dr. Shrestha has established himself as a
+                      compassionate and dedicated healer.
                     </blockquote>
-                    <h4 className="mb-2">Mark Smith</h4>
-                    <h5 className="fs-6 text-secondary mb-0">
-                      Marketing Specialist
-                    </h5>
+                    <h4 className="mb-2">Dr. Sunil Shrestha</h4>
+                    <h5 className="fs-6 text-secondary mb-0">Neurologists</h5>
                   </figcaption>
+                  <button type="button" className="btn btn-lg btn-success mt-5">
+                    <i className="bi bi-person-plus pr-5"></i>
+                    Book Appointment
+                  </button>
                 </figure>
               </div>
             </div>
@@ -96,7 +114,7 @@ const CaregivingPage = () => {
                   <img
                     className="img-fluid rounded rounded-circle mb-4 border border-5"
                     loading="lazy"
-                    src="./assets/img/testimonial-img-4.jpg"
+                    src={LabImg3}
                     alt=""
                   />
                   <figcaption>
@@ -106,14 +124,137 @@ const CaregivingPage = () => {
                       data-bsb-star-off="0"
                     ></div>
                     <blockquote className="bsb-blockquote-icon mb-4">
-                      Nam ultricies, ex lacinia dapibus faucibus, sapien ipsum
-                      euismod massa, at aliquet erat turpis quis diam. className
-                      aptent taciti sociosqu ad litora torquent per conubia
-                      nostra, per inceptos himenaeos.
+                      Dr. Samantha Shah is a dedicated and compassionate medical
+                      professional with a wealth of experience in providing
+                      exceptional patient care. With a strong background in
+                      internal medicine and a passion for improving healthcare
+                      outcomes. She is known for her high ethical standards and
+                      service orientation in hospitals. service orientation in
+                      hospitals.
                     </blockquote>
-                    <h4 className="mb-2">Luke Reeves</h4>
-                    <h5 className="fs-6 text-secondary mb-0">Sales Manager</h5>
+                    <h4 className="mb-2">Dr. Samantha Shah</h4>
+                    <h5 className="fs-6 text-secondary mb-0">
+                      Primary Care Physician (PCPs)
+                    </h5>
                   </figcaption>
+                  <button type="button" className="btn btn-lg btn-success mt-5">
+                    <i className="bi bi-person-plus pr-5"></i>
+                    Book Appointment
+                  </button>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row gy-4 gy-md-0 gx-xxl-5 mb-5">
+          <div className="col-12 col-md-4">
+            <div className="card border-0 border-bottom border-primary shadow-sm">
+              <div className="card-body p-4 p-xxl-5">
+                <figure>
+                  <img
+                    className="img-fluid rounded rounded-circle mb-4 border border-5"
+                    loading="lazy"
+                    src={LabImg1}
+                    alt=""
+                  />
+                  <figcaption>
+                    <div
+                      className="bsb-ratings text-warning mb-3"
+                      data-bsb-star="5"
+                      data-bsb-star-off="0"
+                    ></div>
+                    <blockquote className="bsb-blockquote-icon mb-4">
+                      Dr. Vikram Singh, Ph.D., is a distinguished medical
+                      professional with over 15 years of experience, having
+                      obtained her doctoral degree from renowned medical
+                      institutions including Johns Hopkins University. Dr.
+                      Vikrams illustrious career spans a diverse range of
+                      medical specialties, showcasing her exceptional breadth of
+                      knowledge and expertise.
+                    </blockquote>
+                    <h4 className="mb-2">Dr. Vikram Singh</h4>
+                    <h5 className="fs-6 text-secondary mb-0">
+                      Orthopedic Surgeons
+                    </h5>
+                  </figcaption>
+                  <button type="button" className="btn btn-lg btn-success mt-5">
+                    <i className="bi bi-person-plus pr-5"></i>
+                    Book Appointment
+                  </button>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-md-4">
+            <div className="card border-0 border-bottom border-primary shadow-sm">
+              <div className="card-body p-4 p-xxl-5">
+                <figure>
+                  <img
+                    className="img-fluid rounded rounded-circle mb-4 border border-5"
+                    loading="lazy"
+                    src={LabImg2}
+                    alt=""
+                  />
+                  <figcaption>
+                    <div
+                      className="bsb-ratings text-warning mb-3"
+                      data-bsb-star="4"
+                      data-bsb-star-off="1"
+                    ></div>
+                    <blockquote className="bsb-blockquote-icon mb-4">
+                      Dr. Sunil Shrestha, Ph.D., is an experienced medical
+                      professional who obtained his doctoral degree from Harvard
+                      medical school. He has worked for more than 10 years in
+                      various hospitals and possesses brilliant medical
+                      knowledge and a penchant for modern research in the
+                      medical field. Dr. Shrestha has established himself as a
+                      compassionate and dedicated healer.
+                    </blockquote>
+                    <h4 className="mb-2">Dr. Sunil Shrestha</h4>
+                    <h5 className="fs-6 text-secondary mb-0">Neurologists</h5>
+                  </figcaption>
+                  <button type="button" className="btn btn-lg btn-success mt-5">
+                    <i className="bi bi-person-plus pr-5"></i>
+                    Book Appointment
+                  </button>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-md-4">
+            <div className="card border-0 border-bottom border-primary shadow-sm">
+              <div className="card-body p-4 p-xxl-5">
+                <figure>
+                  <img
+                    className="img-fluid rounded rounded-circle mb-4 border border-5"
+                    loading="lazy"
+                    src={LabImg3}
+                    alt=""
+                  />
+                  <figcaption>
+                    <div
+                      className="bsb-ratings text-warning mb-3"
+                      data-bsb-star="5"
+                      data-bsb-star-off="0"
+                    ></div>
+                    <blockquote className="bsb-blockquote-icon mb-4">
+                      Dr. Samantha Shah is a dedicated and compassionate medical
+                      professional with a wealth of experience in providing
+                      exceptional patient care. With a strong background in
+                      internal medicine and a passion for improving healthcare
+                      outcomes. She is known for her high ethical standards and
+                      service orientation in hospitals.service orientation in
+                      hospitals.
+                    </blockquote>
+                    <h4 className="mb-2">Dr. Samantha Shah</h4>
+                    <h5 className="fs-6 text-secondary mb-0">
+                      Primary Care Physician (PCPs)
+                    </h5>
+                  </figcaption>
+                  <button type="button" className="btn btn-lg btn-success mt-5">
+                    <i className="bi bi-person-plus pr-5"></i>
+                    Book Appointment
+                  </button>
                 </figure>
               </div>
             </div>
