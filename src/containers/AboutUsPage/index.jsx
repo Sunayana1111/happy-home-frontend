@@ -10,8 +10,8 @@ const AboutUsPage = () => {
           backgroundImage: `url(${AboutUsImage})`,
         }}
       />
-      <div className="col-12 p-5">
-        <div className="row justify-content-xl-center">
+      <div className="col-12 p-5 main-col d-flex justify-content-center">
+        <div className="row justify-content-xl-center main-row">
           <div className="col-12 col-xl-11 text-center">
             <h1 className="mb-3 text-center fw-bold">OUR STORY</h1>
             <p className="lead fs-4 text-secondary mb-3">
