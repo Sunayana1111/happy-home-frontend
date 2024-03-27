@@ -28,18 +28,18 @@ const Dashboard = () => {
             elderly, and we are committed to creating a nurturing environment
             that feels like home.
           </p>
-          {!storedToken ? (
-            <div className="d-flex align-items-center">
-              <a className="btn btn-primary btn-lg" href="/login" role="button">
-                Sign-In
-              </a>
+          <div className="d-flex align-items-center">
+            <a className="btn btn-success btn-lg" href="/login" role="button">
+              <b> Book Your Appointment</b>
+            </a>
+            {!storedToken ? (
               <span className="px-3 dashboard-container__introduction__already_account_text">
                 <a href="/login">Already have an account?</a>
               </span>
-            </div>
-          ) : (
-            ""
-          )}
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </div>
       <section className="p-5 py-xl-8">

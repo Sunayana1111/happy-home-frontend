@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import HomeCareLogo from "../../assets/images/home.png";
-import { deleteCookie } from "../../context/setCookie";
+import { deleteCookie, getCookie } from "../../context/setCookie";
 import "./style.scss";
 import { toast } from "react-toastify";
 
 const Header = () => {
   const navigate = useNavigate();
+  const isUserLoggedIn = getCookie("token");
   const logout = () => {
     deleteCookie("token");
     toast.success("Logged out successfully!");
@@ -73,38 +74,53 @@ const Header = () => {
                     <span className="p-2">Help</span>
                   </a>
                 </li>
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i className="bi bi-person-lock"></i>
-                    <span className="p-2">Account</span>
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        My Account
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/register">
-                        Add new user
-                      </a>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#" onClick={logout}>
-                        Logout
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                {isUserLoggedIn ? (
+                  <li className="nav-item dropdown">
+                    <a
+                      className="nav-link dropdown-toggle"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i className="bi bi-person-lock"></i>
+                      <span className="p-2">Account</span>
+                    </a>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <a className="dropdown-item" href="/my-account">
+                          <i className="bi bi-person-lines-fill"></i>
+                          <span className="pl-5">My Account</span>
+                        </a>
+                      </li>
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+                      <li>
+                        <a className="dropdown-item" href="/register">
+                          <i className="bi bi-person-plus"></i>
+                          <span className="pl-5">Register New User</span>
+                        </a>
+                      </li>
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+                      <li>
+                        <a className="dropdown-item" href="#" onClick={logout}>
+                          <i className="bi bi-box-arrow-right"></i>
+                          <span className="pl-5">Logout</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                ) : (
+                  <li className="nav-item">
+                    <a className="nav-link" href="/login">
+                      <i className="bi bi-person-lock"></i>
+                      <span className="p-2">Login</span>
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

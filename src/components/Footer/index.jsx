@@ -25,14 +25,14 @@ const Footer = () => {
                   <div className="widget">
                     <h4 className="widget-title mb-4">Get in Touch</h4>
                     <address className="mb-4">
-                      8014 Edith Blvd NE, Albuquerque, New York, United States
+                      Kamal Margha, Kathmandu 44600, Nepal
                     </address>
                     <p className="mb-1">
                       <a
                         className="link-secondary text-decoration-none"
-                        href="tel:+15057922430"
+                        href="tel:+01-5970012"
                       >
-                        (505) 792-2430
+                        01-5970012
                       </a>
                     </p>
                     <p className="mb-0">
@@ -40,7 +40,7 @@ const Footer = () => {
                         className="link-secondary text-decoration-none"
                         href="mailto:demo@yourdomain.com"
                       >
-                        demo@yourdomain.com
+                        demo@gmail.com
                       </a>
                     </p>
                   </div>
@@ -124,7 +124,12 @@ const Footer = () => {
                 <div className="col-xs-12 col-md-5 order-0 order-md-1">
                   <ul className="nav justify-content-center justify-content-md-end">
                     <li className="nav-item">
-                      <a className="nav-link link-dark" href="#!">
+                      <a
+                        className="nav-link link-dark"
+                        target="_blank"
+                        href="https://www.facebook.com/"
+                        rel="noreferrer"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
@@ -138,7 +143,12 @@ const Footer = () => {
                       </a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link link-dark" href="#!">
+                      <a
+                        className="nav-link link-dark"
+                        href="https://www.youtube.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
@@ -152,7 +162,12 @@ const Footer = () => {
                       </a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link link-dark" href="#!">
+                      <a
+                        className="nav-link link-dark"
+                        href="https://www.twitter.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
@@ -166,7 +181,12 @@ const Footer = () => {
                       </a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link link-dark" href="#!">
+                      <a
+                        className="nav-link link-dark"
+                        href="https://www.instagram.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"

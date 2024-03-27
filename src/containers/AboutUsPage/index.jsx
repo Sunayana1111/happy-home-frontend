@@ -1,27 +1,26 @@
-import AboutUsImage from "../../assets/images/carehome.jpg";
+import AboutUsImage from "../../assets/images/team5.jpg";
+import "./style.scss";
 
 const AboutUsPage = () => {
   return (
-    <div className="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center parent-container">
-      <div className="col-12 col-lg-6 col-xl-5">
-        <img
-          className="img-fluid rounded"
-          loading="lazy"
-          src={AboutUsImage}
-          alt="About 1"
-        />
-      </div>
-      <div className="col-12 col-lg-6 col-xl-7">
+    <div className="row">
+      <div
+        className="col-12 main-about-us"
+        style={{
+          backgroundImage: `url(${AboutUsImage})`,
+        }}
+      />
+      <div className="col-12 p-5">
         <div className="row justify-content-xl-center">
-          <div className="col-12 col-xl-11">
-            <h2 className="mb-3">About Our Story</h2>
+          <div className="col-12 col-xl-11 text-center">
+            <h1 className="mb-3 text-center fw-bold">OUR STORY</h1>
             <p className="lead fs-4 text-secondary mb-3">
               At Happy Home Care, our story is rooted in a deep commitment to
               enriching the lives of our elderly residents. We envisioned a
               place where compassion meets innovation, where every resident is
               valued as a cherished member of our extended family.
             </p>
-            <p>
+            <p className="fs-5">
               Founded by a team of passionate individuals with extensive
               experience in healthcare and eldercare, our journey began with a
               simple yet powerful vision: to create a haven where seniors can
@@ -30,7 +29,7 @@ const AboutUsPage = () => {
               to make a difference, embarked on a mission to redefine the
               standards of elderly care.
             </p>
-            <p className="mb-5">
+            <p className="fs-5 mb-5">
               With this vision at our core, we set out to establish Happy Home
               Care—a sanctuary designed to provide unparalleled support and
               comfort to our residents. Guided by principles of empathy,
@@ -43,8 +42,8 @@ const AboutUsPage = () => {
               our services to honor the individuality of each resident,
               celebrating their unique life stories and preferences.
             </p>
-            <div className="row gy-4 gy-md-0 gx-xxl-5X">
-              <div className="col-12 col-md-6">
+            <div className="row">
+              <div className="col-12 col-md-6 d-flex justify-content-center">
                 <div className="d-flex">
                   <div className="me-4 text-primary">
                     <svg
@@ -66,7 +65,7 @@ const AboutUsPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-12 col-md-6">
+              <div className="col-12 col-md-6 d-flex justify-content-center">
                 <div className="d-flex">
                   <div className="me-4 text-primary">
                     <svg
@@ -89,7 +88,7 @@ const AboutUsPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-12 col-md-6">
+              <div className="col-12 col-md-6 d-flex justify-content-center">
                 <div className="d-flex">
                   <div className="me-4 text-primary">
                     <svg
@@ -114,7 +113,7 @@ const AboutUsPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-12 col-md-6">
+              <div className="col-12 col-md-6 d-flex justify-content-center">
                 <div className="d-flex">
                   <div className="me-4 text-primary">
                     <svg
