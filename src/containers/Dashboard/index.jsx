@@ -1,6 +1,7 @@
 // import HomeCareDashbaordImg from "../../assets/images/oldladies.jpg";
 import CarouselImage from "../../components/CarouselImage";
 import MealSvg from "../../assets/images/meal.svg";
+import DashboardImage from "../../assets/images/option1.jpg";
 import "./style.scss";
 import { getCookie } from "../../context/setCookie";
 
@@ -232,6 +233,149 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
+      <div
+        className="col-12 main-about-us"
+        style={{
+          backgroundImage: `url(${DashboardImage})`,
+        }}
+      />
+      <div className="container dashboard-testimonial">
+        <div className="row">
+          <div className="col-12">
+            <h1 className="text-center fw-bold text-uppercase d-flex justify-content-center">
+              <span className="pr-5">Testimonials</span>
+            </h1>
+
+            <h2 className="display-5 mb-4 text-center">
+              Our valued clients testimonials speak volumes about our works
+              power.
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div className="container overflow-hidden mb-5">
+        <div className="row gy-3 gy-lg-4">
+          <div className="col-12 col-lg-6">
+            <div className="card">
+              <div className="card-body p-4 p-xxl-5">
+                <div
+                  className="bsb-ratings text-warning mb-3"
+                  data-bsb-star="5"
+                  data-bsb-star-off="0"
+                ></div>
+                <blockquote className="bsb-blockquote-icon mb-3">
+                  Nam ultricies, ex lacinia dapibus faucibus, sapien ipsum
+                  euismod massa, at aliquet erat turpis quis diam. className
+                  aptent taciti sociosqu ad litora torquent per conubia nostra,
+                  per inceptos himenaeos.
+                </blockquote>
+                <figure className="d-flex align-items-center m-0 p-0">
+                  <img
+                    className="img-fluid rounded rounded-circle m-0 border border-5"
+                    loading="lazy"
+                    src="./assets/img/testimonial-img-1.jpg"
+                    alt=""
+                  />
+                  <figcaption className="ms-3">
+                    <h4 className="mb-1 h5">Luna John</h4>
+                    <h5 className="fs-6 text-secondary mb-0">UX Designer</h5>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-lg-6">
+            <div className="card">
+              <div className="card-body p-4 p-xxl-5">
+                <div
+                  className="bsb-ratings text-warning mb-3"
+                  data-bsb-star="4"
+                  data-bsb-star-off="1"
+                ></div>
+                <blockquote className="bsb-blockquote-icon mb-3">
+                  Nam ultricies, ex lacinia dapibus faucibus, sapien ipsum
+                  euismod massa, at aliquet erat turpis quis diam. className
+                  aptent taciti sociosqu ad litora torquent per conubia nostra,
+                  per inceptos himenaeos.
+                </blockquote>
+                <figure className="d-flex align-items-center m-0 p-0">
+                  <img
+                    className="img-fluid rounded rounded-circle m-0 border border-5"
+                    loading="lazy"
+                    src="./assets/img/testimonial-img-2.jpg"
+                    alt=""
+                  />
+                  <figcaption className="ms-3">
+                    <h4 className="mb-1 h5">Mark Smith</h4>
+                    <h5 className="fs-6 text-secondary mb-0">
+                      Marketing Specialist
+                    </h5>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-lg-6">
+            <div className="card">
+              <div className="card-body p-4 p-xxl-5">
+                <div
+                  className="bsb-ratings text-warning mb-3"
+                  data-bsb-star="3"
+                  data-bsb-star-off="2"
+                ></div>
+                <blockquote className="bsb-blockquote-icon mb-3">
+                  Nam ultricies, ex lacinia dapibus faucibus, sapien ipsum
+                  euismod massa, at aliquet erat turpis quis diam. className
+                  aptent taciti sociosqu ad litora torquent per conubia nostra,
+                  per inceptos himenaeos.
+                </blockquote>
+                <figure className="d-flex align-items-center m-0 p-0">
+                  <img
+                    className="img-fluid rounded rounded-circle m-0 border border-5"
+                    loading="lazy"
+                    src="./assets/img/testimonial-img-3.jpg"
+                    alt=""
+                  />
+                  <figcaption className="ms-3">
+                    <h4 className="mb-1 h5">Michael Wilson</h4>
+                    <h5 className="fs-6 text-secondary mb-0">SEO Expert</h5>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-lg-6">
+            <div className="card">
+              <div className="card-body p-4 p-xxl-5">
+                <div
+                  className="bsb-ratings text-warning mb-3"
+                  data-bsb-star="5"
+                  data-bsb-star-off="0"
+                ></div>
+                <blockquote className="bsb-blockquote-icon mb-3">
+                  Nam ultricies, ex lacinia dapibus faucibus, sapien ipsum
+                  euismod massa, at aliquet erat turpis quis diam. className
+                  aptent taciti sociosqu ad litora torquent per conubia nostra,
+                  per inceptos himenaeos.
+                </blockquote>
+                <figure className="d-flex align-items-center m-0 p-0">
+                  <img
+                    className="img-fluid rounded rounded-circle m-0 border border-5"
+                    loading="lazy"
+                    src="./assets/img/testimonial-img-4.jpg"
+                    alt=""
+                  />
+                  <figcaption className="ms-3">
+                    <h4 className="mb-1 h5">Luke Reeves</h4>
+                    <h5 className="fs-6 text-secondary mb-0">Sales Manager</h5>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
