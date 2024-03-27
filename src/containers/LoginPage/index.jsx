@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/http-request";
 import { toast } from "react-toastify";
 import CommonLoginCardView from "../../components/CommonLoginCardView";
-import { useAuth } from "../../context/AuthContext";
+import { getCookie, setCookie } from "../../context/setCookie";
 
 const INITIAL_VALUE = {
   username: "",
@@ -13,10 +13,9 @@ const INITIAL_VALUE = {
 };
 
 const LoginPage = () => {
-  const { token } = useAuth();
   const navigate = useNavigate();
-  const { loginSuccess } = useAuth();
   const [formValue, setFormValue] = useState(INITIAL_VALUE);
+  const token = getCookie("token");
 
   useEffect(() => {
     if (token) {
@@ -37,7 +36,7 @@ const LoginPage = () => {
         })
         .then(function (data) {
           if (data.token) {
-            loginSuccess(data.token);
+            setCookie("token", data.token, 15);
             toast.success("User LoggedIn Successfully!");
             navigate("/");
           } else {

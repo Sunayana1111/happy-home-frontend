@@ -13,7 +13,6 @@ import AboutUsPage from "./containers/AboutUsPage";
 import HelpPage from "./containers/HelpPage";
 import PageNotFound from "./containers/PageNotFound";
 import RegisterPage from "./containers/RegisterPage";
-import { AuthProvider } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -22,25 +21,23 @@ const App = () => {
   const { pathname } = location;
   const hasHeaderFooter = !["/login", "/register"].includes(pathname);
   return (
-    <AuthProvider>
-      <div className="App">
-        <ToastContainer />
-        <div className="container-fluid">
-          {hasHeaderFooter ? <Header /> : ""}
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/caregiving" element={<CaregivingPage />} />
-            <Route path="/lab-services" element={<LabServicesPage />} />
-            <Route path="/about-us" element={<AboutUsPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/help" element={<HelpPage />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-          {hasHeaderFooter ? <Footer /> : ""}
-        </div>
+    <div className="App">
+      <ToastContainer />
+      <div className="container-fluid">
+        {hasHeaderFooter ? <Header /> : ""}
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/caregiving" element={<CaregivingPage />} />
+          <Route path="/lab-services" element={<LabServicesPage />} />
+          <Route path="/about-us" element={<AboutUsPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/help" element={<HelpPage />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+        {hasHeaderFooter ? <Footer /> : ""}
       </div>
-    </AuthProvider>
+    </div>
   );
 };
 

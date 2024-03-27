@@ -1,12 +1,21 @@
+import { useNavigate } from "react-router-dom";
 import HomeCareLogo from "../../assets/images/home.png";
+import { deleteCookie } from "../../context/setCookie";
 import "./style.scss";
+import { toast } from "react-toastify";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const logout = () => {
+    deleteCookie("token");
+    toast.success("Logged out successfully!");
+    navigate("/login");
+  };
   return (
     <>
       <div>
         <nav className="navbar navbar-expand-lg fixed-top bg-body-tertiary">
-          <div className="container-fluid main-header-nav overflow-auto">
+          <div className="container-fluid main-header-nav">
             <a className="navbar-brand main-logo" href="#">
               <img
                 src={HomeCareLogo}
@@ -64,11 +73,37 @@ const Header = () => {
                     <span className="p-2">Help</span>
                   </a>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/login">
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link dropdown-toggle"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
                     <i className="bi bi-person-lock"></i>
                     <span className="p-2">Account</span>
                   </a>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        My Account
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/register">
+                        Add new user
+                      </a>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#" onClick={logout}>
+                        Logout
+                      </a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </div>

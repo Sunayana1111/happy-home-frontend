@@ -2,10 +2,11 @@
 import CarouselImage from "../../components/CarouselImage";
 import MealSvg from "../../assets/images/meal.svg";
 import "./style.scss";
-import { useAuth } from "../../context/AuthContext";
+import { getCookie } from "../../context/setCookie";
 
 const Dashboard = () => {
-  const { token } = useAuth();
+  const storedToken = getCookie("token");
+
   return (
     <>
       <div className="row dashboard-container gx-5">
@@ -27,7 +28,7 @@ const Dashboard = () => {
             elderly, and we are committed to creating a nurturing environment
             that feels like home.
           </p>
-          {token ? (
+          {!storedToken ? (
             <div className="d-flex align-items-center">
               <a className="btn btn-primary btn-lg" href="/login" role="button">
                 Sign-In
