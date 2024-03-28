@@ -2,34 +2,36 @@ import LabImg1 from "../../assets/images/lab4.jpg";
 import LabImg2 from "../../assets/images/lab2.jpg";
 import LabImg3 from "../../assets/images/lab8.jpg";
 import "./style.scss";
-// import { useEffect } from "react";
-// import { toast } from "react-toastify";
-// import { getAllCareGivers } from "../../services/http-request";
-// import { getCookie } from "../../context/setCookie";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { getAllCareGivers } from "../../services/http-request";
 
 const CaregivingPage = () => {
-  // const token = getCookie("token");
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (token) {
-  //     try {
-  //       getAllCareGivers()
-  //         .then((res) => {
-  //           return res.json();
-  //         })
-  //         .then((data) => {
-  //           if (data) {
-  //             toast.success("get caregivers Successfully!");
-  //           } else {
-  //             toast.error(JSON.stringify(data));
-  //           }
-  //         });
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //       toast.error(JSON.stringify(error));
-  //     }
-  //   }
-  // }, []);
+  useEffect(() => {
+    try {
+      getAllCareGivers()
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          if (data) {
+            toast.success("get caregivers Successfully!");
+          } else {
+            toast.error(JSON.stringify(data));
+          }
+        });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(JSON.stringify(error));
+    }
+  }, []);
+
+  const redirectToBookAppointment = () => {
+    navigate(`/caregiving/book-appointment`);
+  };
 
   return (
     <>
@@ -90,7 +92,11 @@ const CaregivingPage = () => {
                       Orthopedic Surgeons
                     </h5>
                   </figcaption>
-                  <button type="button" className="btn btn-lg btn-success mt-5">
+                  <button
+                    type="button"
+                    className="btn btn-lg btn-success mt-5"
+                    onClick={redirectToBookAppointment}
+                  >
                     <i className="bi bi-person-plus pr-5"></i>
                     Book Appointment
                   </button>

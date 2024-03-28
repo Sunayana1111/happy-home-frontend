@@ -15,6 +15,8 @@ import PageNotFound from "./containers/PageNotFound";
 import RegisterPage from "./containers/RegisterPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AppointmentPage from "./containers/AppointmentPage";
+import CaregivingDetail from "./containers/CaregivingPage/CaregivingDetail";
 
 const App = () => {
   const location = useLocation();
@@ -28,8 +30,23 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<LoginPage />} />
+
+          {/* Index page for caregiving */}
           <Route path="/caregiving" element={<CaregivingPage />} />
+          {/* Dynamic caregiving route */}
+          <Route
+            path="/caregiving/:caregiverId"
+            element={<CaregivingDetail />}
+          />
+          <Route
+            path="/caregiving/book-appointment"
+            element={<AppointmentPage />}
+          />
           <Route path="/lab-services" element={<LabServicesPage />} />
+          <Route
+            path="/lab-services/book-appointment"
+            element={<AppointmentPage />}
+          />
           <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/help" element={<HelpPage />} />
