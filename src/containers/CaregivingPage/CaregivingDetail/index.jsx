@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import LabImg3 from "../../../assets/images/lab8.jpg";
 import { getCaregiverDetail } from "../../../services/http-request";
+import "../style.scss";
 
 const CaregivingDetail = () => {
   const params = useParams();
@@ -37,7 +38,7 @@ const CaregivingDetail = () => {
 
   return (
     <>
-      <div className="container parent-container">
+      <div className="container parent-container caregiver-detail-container">
         <div className="row">
           <div className="col-5 m-5">
             <img
@@ -49,7 +50,7 @@ const CaregivingDetail = () => {
           </div>
           <div className="col-5 m-5">
             <div className="card border-0 border-bottom border-primary shadow-sm text-cursor">
-              <div className="card-body pt-5 px-5">
+              <div className="card-body p-5">
                 <figure>
                   <figcaption>
                     <h2 className="mb-2">

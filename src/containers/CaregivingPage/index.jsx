@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getAllCareGivers } from "../../services/http-request";
-// import { caregivingData } from "../../utils/dummyData";
+import { caregivingData } from "../../utils/dummyData";
 
 const CaregivingPage = () => {
   const navigate = useNavigate();
   const [caregivers, setCaregivers] = useState({
     loading: true,
-    data: [],
+    data: caregivingData,
   });
 
   useEffect(() => {

@@ -13,7 +13,7 @@ const AppointmentPage = () => {
   };
   return (
     <LocationView>
-      <div className="card p-5">
+      <div className="card appointment-card">
         <div className="card-body">
           <h1 className="card-title">
             <nav aria-label="breadcrumb">

@@ -13,3 +13,13 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.caregiver-detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .card {
+    width: 46rem;
+  }
+}
