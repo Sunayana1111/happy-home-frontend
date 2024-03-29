@@ -1,9 +1,12 @@
 import { useState } from "react";
 import LocationView from "../../components/LocationView";
 import "./style.scss";
+import KhaltiPage from "../KhaltiPage";
+import CashLogo from "../../assets/images/cash.jpg";
 
 const AppointmentPage = () => {
   const [appointmentDetail, setAppointmentDetail] = useState({});
+  const [selectedPaymentType, setPaymentType] = useState("");
   const onSubmitHandler = () => {};
   const handleOnChange = (event) => {
     setAppointmentDetail({
@@ -11,6 +14,9 @@ const AppointmentPage = () => {
       [event.target.name]: event.target.value,
     });
   };
+
+  console.log(selectedPaymentType);
+
   return (
     <LocationView>
       <div className="card appointment-card">
@@ -58,11 +64,11 @@ const AppointmentPage = () => {
               <select
                 className="form-select form-select-lg"
                 name="gender"
-                aria-label="Enter Your Age"
+                aria-label="Select Services"
                 onChange={handleOnChange}
-                placeholder="Select you Gender"
+                placeholder="Select which service you want to book"
               >
-                <option selected>Enter Your Age</option>
+                <option selected>Select which service you want to book</option>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
                 <option value="other">Other</option>
@@ -79,38 +85,24 @@ const AppointmentPage = () => {
                 placeholder="Enter Your Date"
               />
             </div>
-            <div className="mb-3">
-              <label className="form-label">Select Payment Method</label>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="inlineCheckbox1"
-                  onChange={handleOnChange}
-                  value="option1"
-                />
-                <label className="form-check-label" htmlFor="inlineCheckbox1">
-                  Khalti Payment
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="inlineCheckbox2"
-                  onChange={handleOnChange}
-                  value="option2"
-                />
-                <label className="form-check-label" htmlFor="inlineCheckbox2">
-                  Cash on Payment
-                </label>
+            <label className="form-label">Select Payment Method: </label>
+            <div className="mb-3 d-flex">
+              <KhaltiPage
+                onClickSet={() => setPaymentType("khalti")}
+                isActive={selectedPaymentType === "khalti"}
+              />
+              <div
+                className={`form-check ml-5 ${selectedPaymentType === "cash" && "active"}`}
+                role="presentation"
+                onClick={() => setPaymentType("cash")}
+              >
+                <img src={CashLogo} height="60" />
+                <span className="ml-5">Cash on Payment</span>
               </div>
             </div>
-            <input
-              className="btn btn-primary btn-lg w-60 mt-2"
-              type="submit"
-              value="Confirm Booking"
-            />
+            <button className="btn btn-primary btn-lg mt-2" type="submit">
+              Confirm Booking
+            </button>
           </form>
         </div>
       </div>
