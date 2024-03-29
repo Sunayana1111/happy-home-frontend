@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import HomeCareLogo from "../../assets/images/home.png";
-import { deleteCookie, getCookie } from "../../context/setCookie";
+import { deleteCookie, getCookie } from "../../utils/setCookie";
 import "./style.scss";
 import { toast } from "react-toastify";
 

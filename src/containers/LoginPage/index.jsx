@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/http-request";
 import { toast } from "react-toastify";
-import CommonLoginCardView from "../../components/CommonLoginCardView";
-import { getCookie, setCookie } from "../../context/setCookie";
+import LoginCardView from "../../components/LoginCardView";
+import { getCookie, setCookie } from "../../utils/setCookie";
 
 const INITIAL_VALUE = {
   username: "",
@@ -50,7 +50,7 @@ const LoginPage = () => {
   };
 
   return (
-    <CommonLoginCardView
+    <LoginCardView
       title="Login Page"
       subTitle="Welcome to Homecare Login Page. Please enter your details to
                   sign in to your account!"
@@ -88,7 +88,7 @@ const LoginPage = () => {
       <span className="py-3 dashboard-container__introduction__already_account_text">
         Don't have an account? <a href="/register">Register here</a>
       </span>
-    </CommonLoginCardView>
+    </LoginCardView>
   );
 };
 

@@ -3,7 +3,7 @@ import HomeCareLogo from "../../assets/images/home.png";
 import AssetLoginImage from "../../assets/images/login9.jpg";
 import "./style.scss";
 
-const CommonLoginCardView = ({ title, subTitle, children }) => {
+const LoginCardView = ({ title, subTitle, children }) => {
   return (
     <div className="row login-container gx-5">
       <div className="col-md-12 login-container__main-col">
@@ -38,4 +38,4 @@ const CommonLoginCardView = ({ title, subTitle, children }) => {
   );
 };
 
-export default CommonLoginCardView;
+export default LoginCardView;

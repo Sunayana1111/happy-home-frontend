@@ -1,14 +1,17 @@
-import LabImg1 from "../../assets/images/lab4.jpg";
-import LabImg2 from "../../assets/images/lab2.jpg";
 import LabImg3 from "../../assets/images/lab8.jpg";
 import "./style.scss";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getAllCareGivers } from "../../services/http-request";
+// import { caregivingData } from "../../utils/dummyData";
 
 const CaregivingPage = () => {
   const navigate = useNavigate();
+  const [caregivers, setCaregivers] = useState({
+    loading: true,
+    data: [],
+  });
 
   useEffect(() => {
     try {
@@ -18,7 +21,11 @@ const CaregivingPage = () => {
         })
         .then((data) => {
           if (data) {
-            toast.success("get caregivers Successfully!");
+            console.log(data, "hello");
+            setCaregivers({
+              loading: false,
+              data,
+            });
           } else {
             toast.error(JSON.stringify(data));
           }
@@ -29,8 +36,13 @@ const CaregivingPage = () => {
     }
   }, []);
 
-  const redirectToBookAppointment = () => {
+  const redirectToBookAppointment = (event) => {
+    event.stopPropagation();
     navigate(`/caregiving/book-appointment`);
+  };
+
+  const getMoreDetails = (uuid) => {
+    navigate(`/caregiving/${uuid}`);
   };
 
   return (
@@ -40,15 +52,6 @@ const CaregivingPage = () => {
           <div className="col-12">
             <h1 className="text-center fw-bold text-uppercase d-flex justify-content-center">
               <span className="pr-5">Caregivers</span>
-              {/* <button
-                type="button"
-                className="btn btn-lg btn-primary mb-3 mb-md-4 mb-xl-5"
-                data-bs-toggle="modal"
-                data-bs-target="#addNewCareGiver"
-              >
-                <i className="bi bi-person-plus pr-5"></i>
-                Add New Caregiver
-              </button> */}
             </h1>
             <p className="display-5 mb-4 mb-md-5 text-center">
               {" "}
@@ -59,239 +62,60 @@ const CaregivingPage = () => {
           </div>
         </div>
       </div>
-
       <div className="container overflow-hidden">
         <div className="row gy-4 gy-md-0 gx-xxl-5 mb-5">
-          <div className="col-12 col-md-4">
-            <div className="card border-0 border-bottom border-primary shadow-sm">
-              <div className="card-body p-4 p-xxl-5">
-                <figure>
-                  <img
-                    className="img-fluid rounded rounded-circle mb-4 border border-5"
-                    loading="lazy"
-                    src={LabImg1}
-                    alt=""
-                  />
-                  <figcaption>
-                    <div
-                      className="bsb-ratings text-warning mb-3"
-                      data-bsb-star="5"
-                      data-bsb-star-off="0"
-                    ></div>
-                    <blockquote className="bsb-blockquote-icon mb-4">
-                      Dr. Vikram Singh, Ph.D., is a distinguished medical
-                      professional with over 15 years of experience, having
-                      obtained her doctoral degree from renowned medical
-                      institutions including Johns Hopkins University. Dr.
-                      Vikrams illustrious career spans a diverse range of
-                      medical specialties, showcasing her exceptional breadth of
-                      knowledge and expertise.
-                    </blockquote>
-                    <h4 className="mb-2">Dr. Vikram Singh</h4>
-                    <h5 className="fs-6 text-secondary mb-0">
-                      Orthopedic Surgeons
-                    </h5>
-                  </figcaption>
-                  <button
-                    type="button"
-                    className="btn btn-lg btn-success mt-5"
-                    onClick={redirectToBookAppointment}
-                  >
-                    <i className="bi bi-person-plus pr-5"></i>
-                    Book Appointment
-                  </button>
-                </figure>
+          {caregivers.data.map((each) => (
+            <div className="col-12 col-md-4" key={each.uuid}>
+              <div className="card border-0 border-bottom border-primary shadow-sm text-cursor mb-5">
+                <div className="card-body pt-5 px-5" title="Learn more">
+                  <figure>
+                    <img
+                      className="img-fluid rounded rounded-circle mb-4 border border-5"
+                      loading="lazy"
+                      src={LabImg3}
+                      alt=""
+                    />
+                    <figcaption>
+                      <div
+                        className="bsb-ratings text-warning mb-3"
+                        data-bsb-star={Math.ceil(Number(each.ratings)) || 5}
+                        data-bsb-star-off="0"
+                      ></div>
+                      <blockquote className="bsb-blockquote-icon mb-4 blockquote-bio">
+                        {each.bio}
+                      </blockquote>
+                      <h4 className="mb-2">
+                        {each?.user?.first_name} {each?.user?.last_name}
+                      </h4>
+                      <h5 className="fs-6 text-secondary mb-1">
+                        {each.speciality}
+                      </h5>
+                      <h5 className="fs-6 text-secondary mb-1">
+                        Experience: {each.experience}
+                      </h5>
+                    </figcaption>
+                    <div className="col-12 text-center">
+                      <button
+                        type="button"
+                        className="btn btn-lg btn-success mt-3 w-100"
+                        onClick={redirectToBookAppointment}
+                      >
+                        <i className="bi bi-person-plus pr-5"></i>
+                        Book Appointment
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-lg btn btn-outline-info mt-3"
+                        onClick={() => getMoreDetails(each.uuid)}
+                      >
+                        Learn more..
+                      </button>
+                    </div>
+                  </figure>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="col-12 col-md-4">
-            <div className="card border-0 border-bottom border-primary shadow-sm">
-              <div className="card-body p-4 p-xxl-5">
-                <figure>
-                  <img
-                    className="img-fluid rounded rounded-circle mb-4 border border-5"
-                    loading="lazy"
-                    src={LabImg2}
-                    alt=""
-                  />
-                  <figcaption>
-                    <div
-                      className="bsb-ratings text-warning mb-3"
-                      data-bsb-star="4"
-                      data-bsb-star-off="1"
-                    ></div>
-                    <blockquote className="bsb-blockquote-icon mb-4">
-                      Dr. Sunil Shrestha, Ph.D., is an experienced medical
-                      professional who obtained his doctoral degree from Harvard
-                      medical school. He has worked for more than 10 years in
-                      various hospitals and possesses brilliant medical
-                      knowledge and a penchant for modern research in the
-                      medical field. Dr. Shrestha has established himself as a
-                      compassionate and dedicated healer.
-                    </blockquote>
-                    <h4 className="mb-2">Dr. Sunil Shrestha</h4>
-                    <h5 className="fs-6 text-secondary mb-0">Neurologists</h5>
-                  </figcaption>
-                  <button type="button" className="btn btn-lg btn-success mt-5">
-                    <i className="bi bi-person-plus pr-5"></i>
-                    Book Appointment
-                  </button>
-                </figure>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-md-4">
-            <div className="card border-0 border-bottom border-primary shadow-sm">
-              <div className="card-body p-4 p-xxl-5">
-                <figure>
-                  <img
-                    className="img-fluid rounded rounded-circle mb-4 border border-5"
-                    loading="lazy"
-                    src={LabImg3}
-                    alt=""
-                  />
-                  <figcaption>
-                    <div
-                      className="bsb-ratings text-warning mb-3"
-                      data-bsb-star="5"
-                      data-bsb-star-off="0"
-                    ></div>
-                    <blockquote className="bsb-blockquote-icon mb-4">
-                      Dr. Samantha Shah is a dedicated and compassionate medical
-                      professional with a wealth of experience in providing
-                      exceptional patient care. With a strong background in
-                      internal medicine and a passion for improving healthcare
-                      outcomes. She is known for her high ethical standards and
-                      service orientation in hospitals. service orientation in
-                      hospitals.
-                    </blockquote>
-                    <h4 className="mb-2">Dr. Samantha Shah</h4>
-                    <h5 className="fs-6 text-secondary mb-0">
-                      Primary Care Physician (PCPs)
-                    </h5>
-                  </figcaption>
-                  <button type="button" className="btn btn-lg btn-success mt-5">
-                    <i className="bi bi-person-plus pr-5"></i>
-                    Book Appointment
-                  </button>
-                </figure>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row gy-4 gy-md-0 gx-xxl-5 mb-5">
-          <div className="col-12 col-md-4">
-            <div className="card border-0 border-bottom border-primary shadow-sm">
-              <div className="card-body p-4 p-xxl-5">
-                <figure>
-                  <img
-                    className="img-fluid rounded rounded-circle mb-4 border border-5"
-                    loading="lazy"
-                    src={LabImg1}
-                    alt=""
-                  />
-                  <figcaption>
-                    <div
-                      className="bsb-ratings text-warning mb-3"
-                      data-bsb-star="5"
-                      data-bsb-star-off="0"
-                    ></div>
-                    <blockquote className="bsb-blockquote-icon mb-4">
-                      Dr. Vikram Singh, Ph.D., is a distinguished medical
-                      professional with over 15 years of experience, having
-                      obtained her doctoral degree from renowned medical
-                      institutions including Johns Hopkins University. Dr.
-                      Vikrams illustrious career spans a diverse range of
-                      medical specialties, showcasing her exceptional breadth of
-                      knowledge and expertise.
-                    </blockquote>
-                    <h4 className="mb-2">Dr. Vikram Singh</h4>
-                    <h5 className="fs-6 text-secondary mb-0">
-                      Orthopedic Surgeons
-                    </h5>
-                  </figcaption>
-                  <button type="button" className="btn btn-lg btn-success mt-5">
-                    <i className="bi bi-person-plus pr-5"></i>
-                    Book Appointment
-                  </button>
-                </figure>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-md-4">
-            <div className="card border-0 border-bottom border-primary shadow-sm">
-              <div className="card-body p-4 p-xxl-5">
-                <figure>
-                  <img
-                    className="img-fluid rounded rounded-circle mb-4 border border-5"
-                    loading="lazy"
-                    src={LabImg2}
-                    alt=""
-                  />
-                  <figcaption>
-                    <div
-                      className="bsb-ratings text-warning mb-3"
-                      data-bsb-star="4"
-                      data-bsb-star-off="1"
-                    ></div>
-                    <blockquote className="bsb-blockquote-icon mb-4">
-                      Dr. Sunil Shrestha, Ph.D., is an experienced medical
-                      professional who obtained his doctoral degree from Harvard
-                      medical school. He has worked for more than 10 years in
-                      various hospitals and possesses brilliant medical
-                      knowledge and a penchant for modern research in the
-                      medical field. Dr. Shrestha has established himself as a
-                      compassionate and dedicated healer.
-                    </blockquote>
-                    <h4 className="mb-2">Dr. Sunil Shrestha</h4>
-                    <h5 className="fs-6 text-secondary mb-0">Neurologists</h5>
-                  </figcaption>
-                  <button type="button" className="btn btn-lg btn-success mt-5">
-                    <i className="bi bi-person-plus pr-5"></i>
-                    Book Appointment
-                  </button>
-                </figure>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-md-4">
-            <div className="card border-0 border-bottom border-primary shadow-sm">
-              <div className="card-body p-4 p-xxl-5">
-                <figure>
-                  <img
-                    className="img-fluid rounded rounded-circle mb-4 border border-5"
-                    loading="lazy"
-                    src={LabImg3}
-                    alt=""
-                  />
-                  <figcaption>
-                    <div
-                      className="bsb-ratings text-warning mb-3"
-                      data-bsb-star="5"
-                      data-bsb-star-off="0"
-                    ></div>
-                    <blockquote className="bsb-blockquote-icon mb-4">
-                      Dr. Samantha Shah is a dedicated and compassionate medical
-                      professional with a wealth of experience in providing
-                      exceptional patient care. With a strong background in
-                      internal medicine and a passion for improving healthcare
-                      outcomes. She is known for her high ethical standards and
-                      service orientation in hospitals.service orientation in
-                      hospitals.
-                    </blockquote>
-                    <h4 className="mb-2">Dr. Samantha Shah</h4>
-                    <h5 className="fs-6 text-secondary mb-0">
-                      Primary Care Physician (PCPs)
-                    </h5>
-                  </figcaption>
-                  <button type="button" className="btn btn-lg btn-success mt-5">
-                    <i className="bi bi-person-plus pr-5"></i>
-                    Book Appointment
-                  </button>
-                </figure>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </>

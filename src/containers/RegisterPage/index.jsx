@@ -2,10 +2,10 @@
 import { useState } from "react";
 // import { registerUser } from "../../services/http-request";
 import { useNavigate } from "react-router-dom";
-import CommonLoginCardView from "../../components/CommonLoginCardView";
+import LoginCardView from "../../components/LoginCardView";
 import { registerUser } from "../../services/http-request";
 import { toast } from "react-toastify";
-import { getCookie } from "../../context/setCookie";
+import { getCookie } from "../../utils/setCookie";
 
 const INITIAL_VALUE = {
   email: "",
@@ -52,7 +52,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <CommonLoginCardView title="User Registration" subTitle="">
+    <LoginCardView title="User Registration" subTitle="">
       <form onSubmit={onSubmitHandler}>
         <div className="mb-3 d-flex">
           <div className="col-6">
@@ -200,7 +200,7 @@ const RegisterPage = () => {
           </>
         )}
       </span>
-    </CommonLoginCardView>
+    </LoginCardView>
   );
 };
 

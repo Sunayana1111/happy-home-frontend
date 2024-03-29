@@ -3,7 +3,7 @@ import CarouselImage from "../../components/CarouselImage";
 import MealSvg from "../../assets/images/meal.svg";
 import DashboardImage from "../../assets/images/option1.jpg";
 import "./style.scss";
-import { getCookie } from "../../context/setCookie";
+import { getCookie } from "../../utils/setCookie";
 
 const Dashboard = () => {
   const storedToken = getCookie("token");

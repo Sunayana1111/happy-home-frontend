@@ -3,7 +3,7 @@ import LabImg2 from "../../assets/images/lab5.jpg";
 import LabImg3 from "../../assets/images/lab7.jpg";
 import LabImg4 from "../../assets/images/lab6.jpg";
 // import { useEffect } from "react";
-// import { getCookie } from "../../context/setCookie";
+// import { getCookie } from "../../utils/setCookie";
 // import { getAllLabServices } from "../../services/http-request";
 // import { toast } from "react-toastify";
 

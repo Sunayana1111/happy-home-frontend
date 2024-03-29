@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-import { getCookie } from "../context/setCookie";
+import { getCookie } from "../utils/setCookie";
 
 const apiUrl = process.env.REACT_APP_BASE_URL;
 const loggedInToken = getCookie("token");
@@ -43,7 +43,16 @@ export const getAllCareGivers = async () => {
     method: "GET",
     headers: {
       Accept: "application/json",
-      "X-CSRFToken": loggedInToken,
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+export const getCaregiverDetail = async (uuid) => {
+  return await fetch(`${apiUrl}/core/care-giver/${uuid || ""}/`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
     },
   });
