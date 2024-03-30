@@ -21,7 +21,6 @@ const CaregivingPage = () => {
         })
         .then((data) => {
           if (data) {
-            console.log(data, "hello");
             setCaregivers({
               loading: false,
               data,
@@ -36,9 +35,9 @@ const CaregivingPage = () => {
     }
   }, []);
 
-  const redirectToBookAppointment = (event) => {
+  const redirectToBookAppointment = (event, uuid) => {
     event.stopPropagation();
-    navigate(`/caregiving/book-appointment`);
+    navigate(`/caregiving/${uuid}/book-appointment`);
   };
 
   const getMoreDetails = (uuid) => {
@@ -98,7 +97,13 @@ const CaregivingPage = () => {
                       <button
                         type="button"
                         className="btn btn-lg btn-success mt-3 w-100"
-                        onClick={redirectToBookAppointment}
+                        onClick={(event) => {
+                          redirectToBookAppointment(event, each.uuid);
+                          localStorage.setItem(
+                            "book-detail",
+                            JSON.stringify(each),
+                          );
+                        }}
                       >
                         <i className="bi bi-person-plus pr-5"></i>
                         Book Appointment

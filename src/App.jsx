@@ -17,6 +17,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AppointmentPage from "./containers/AppointmentPage";
 import CaregivingDetail from "./containers/CaregivingPage/CaregivingDetail";
+import ProfilePage from "./containers/ProfilePage";
 
 const App = () => {
   const location = useLocation();
@@ -30,6 +31,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/my-account" element={<ProfilePage />} />
 
           {/* Index page for caregiving */}
           <Route path="/caregiving" element={<CaregivingPage />} />
@@ -39,13 +41,13 @@ const App = () => {
             element={<CaregivingDetail />}
           />
           <Route
-            path="/caregiving/book-appointment"
-            element={<AppointmentPage />}
+            path="/caregiving/:uuid/book-appointment"
+            element={<AppointmentPage page="Caregiving" />}
           />
           <Route path="/lab-services" element={<LabServicesPage />} />
           <Route
-            path="/lab-services/book-appointment"
-            element={<AppointmentPage />}
+            path="/lab-services/:uuid/book-appointment"
+            element={<AppointmentPage page="Lab Services" />}
           />
           <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/register" element={<RegisterPage />} />

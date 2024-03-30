@@ -1,35 +1,36 @@
-import LabImg1 from "../../assets/images/lab4.jpg";
-import LabImg2 from "../../assets/images/lab5.jpg";
-import LabImg3 from "../../assets/images/lab7.jpg";
-import LabImg4 from "../../assets/images/lab6.jpg";
-// import { useEffect } from "react";
-// import { getCookie } from "../../utils/setCookie";
-// import { getAllLabServices } from "../../services/http-request";
-// import { toast } from "react-toastify";
+// import LabImg1 from "../../assets/images/lab4.jpg";
+// import LabImg3 from "../../assets/images/lab7.jpg";
+import LabImg4 from "../../assets/images/lab7.jpg";
+import { useEffect, useState } from "react";
+import { getAllLabServices } from "../../services/http-request";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const LabServicesPage = () => {
-  // const token = getCookie("token");
+  const navigate = useNavigate();
+  const [allLabServices, setLabServices] = useState([]);
+  useEffect(() => {
+    try {
+      getAllLabServices()
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          if (data) {
+            setLabServices(data);
+          } else {
+            toast.error(JSON.stringify(data));
+          }
+        });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(JSON.stringify(error));
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     try {
-  //       getAllLabServices()
-  //         .then((res) => {
-  //           return res.json();
-  //         })
-  //         .then((data) => {
-  //           if (data) {
-  //             toast.success("get lab services Successfully!");
-  //           } else {
-  //             toast.error(JSON.stringify(data));
-  //           }
-  //         });
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //       toast.error(JSON.stringify(error));
-  //     }
-  //   }
-  // }, []);
+  const redirectToBookAppointment = (uuid) => {
+    navigate(`/lab-services/${uuid}/book-appointment`);
+  };
 
   return (
     <>
@@ -49,115 +50,43 @@ const LabServicesPage = () => {
 
       <div className="container overflow-hidden mb-5">
         <div className="row gy-4 gy-lg-0">
-          <div className="col-12 col-lg-6 mb-5">
-            <article>
-              <div className="card border-0">
-                <img
-                  className="card-img-top img-fluid m-0"
-                  loading="lazy"
-                  src={LabImg1}
-                  height={500}
-                  alt=""
-                />
-                <div className="card-body border bg-white p-4">
-                  <div className="entry-header mb-3">
-                    <h2 className="card-title entry-title h4 mb-0">
-                      <a className="link-dark text-decoration-none" href="#!">
-                        Our Vision
-                      </a>
-                    </h2>
+          {allLabServices.map((eachLab) => (
+            <div className="col-12 col-lg-6 mb-5" key={eachLab.uuid}>
+              <article>
+                <div className="card border-0">
+                  <img
+                    className="card-img-top m-0"
+                    loading="lazy"
+                    src={LabImg4}
+                    height={400}
+                    alt=""
+                  />
+                  <div className="card-body border bg-white p-4">
+                    <div className="entry-header mb-3">
+                      <h2 className="card-title entry-title h4 mb-0">
+                        <a className="link-dark text-decoration-none" href="#!">
+                          {eachLab.name}
+                        </a>
+                      </h2>
+                    </div>
+                    <p className="card-text entry-summary text-secondary mb-3 text-truncate">
+                      {eachLab.description}
+                    </p>
+                    <div className="col-12 text-center">
+                      <button
+                        type="button"
+                        className="btn btn-lg btn-success mt-3 w-100"
+                        onClick={() => redirectToBookAppointment(eachLab.uuid)}
+                      >
+                        <i className="bi bi-person-plus pr-5"></i>
+                        Book Appointment
+                      </button>
+                    </div>
                   </div>
-                  <p className="card-text entry-summary text-secondary mb-3">
-                    From sleek modernism to timeless elegance, we infuse every
-                    creation with a touch of our artistic ingenuity. As a design
-                    agency, great design can shape perceptions, inspire action,
-                    and leave an indelible mark on the world.
-                  </p>
                 </div>
-              </div>
-            </article>
-          </div>
-          <div className="col-12 col-lg-6 mb-5">
-            <article>
-              <div className="card border-0">
-                <img
-                  className="card-img-top img-fluid m-0"
-                  loading="lazy"
-                  src={LabImg2}
-                  height={500}
-                  alt=""
-                />
-                <div className="card-body border bg-white p-4">
-                  <div className="entry-header mb-3">
-                    <h2 className="card-title entry-title h4 mb-0">
-                      <a className="link-dark text-decoration-none" href="#!">
-                        Our Approach
-                      </a>
-                    </h2>
-                  </div>
-                  <p className="card-text entry-summary text-secondary mb-3">
-                    Welcome to our design agency, where creativity knows no
-                    bounds and innovation takes center stage. We are a team of
-                    dedicated designers, strategists, and visionaries with a
-                  </p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div className="col-12 col-lg-6">
-            <article>
-              <div className="card border-0">
-                <img
-                  className="card-img-top img-fluid m-0"
-                  loading="lazy"
-                  src={LabImg3}
-                  height={500}
-                  alt=""
-                />
-                <div className="card-body border bg-white p-4">
-                  <div className="entry-header mb-3">
-                    <h2 className="card-title entry-title h4 mb-0">
-                      <a className="link-dark text-decoration-none" href="#!">
-                        Our Approach
-                      </a>
-                    </h2>
-                  </div>
-                  <p className="card-text entry-summary text-secondary mb-3">
-                    Welcome to our design agency, where creativity knows no
-                    bounds and innovation takes center stage. We are a team of
-                    dedicated designers, strategists, and visionaries with a
-                  </p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div className="col-12 col-lg-6">
-            <article>
-              <div className="card border-0">
-                <img
-                  className="card-img-top img-fluid m-0"
-                  loading="lazy"
-                  src={LabImg4}
-                  height={500}
-                  alt=""
-                />
-                <div className="card-body border bg-white p-4">
-                  <div className="entry-header mb-3">
-                    <h2 className="card-title entry-title h4 mb-0">
-                      <a className="link-dark text-decoration-none" href="#!">
-                        Our Approach
-                      </a>
-                    </h2>
-                  </div>
-                  <p className="card-text entry-summary text-secondary mb-3">
-                    Welcome to our design agency, where creativity knows no
-                    bounds and innovation takes center stage. We are a team of
-                    dedicated designers, strategists, and visionaries with a
-                  </p>
-                </div>
-              </div>
-            </article>
-          </div>
+              </article>
+            </div>
+          ))}
         </div>
       </div>
     </>

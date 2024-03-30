@@ -57,3 +57,36 @@ export const getCaregiverDetail = async (uuid) => {
     },
   });
 };
+
+export const bookAppointment = async (body) => {
+  return await fetch(`${apiUrl}/core/care-giver/book-appointment/`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+};
+
+export const initiateKhaltiPayment = async (body) => {
+  return await fetch(`${apiUrl}/core/appointment/transaction/initiate/`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+};
+
+export const verifyKhaltiPayment = async (body) => {
+  return await fetch(`${apiUrl}/core/appointment/transaction/verify/`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+};
