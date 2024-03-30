@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import KhaltiCheckout from "khalti-checkout-web";
 import LocationView from "../../components/LocationView";
 import "./style.scss";
+import BookingLogo from "../../assets/images/book4.jpg";
 import CashLogo from "../../assets/images/cash.jpg";
 import KhaltiLogo from "../../assets/images/khalti1.jpg";
 
@@ -13,6 +14,8 @@ import {
   verifyKhaltiPayment,
 } from "../../services/http-request";
 import { toast } from "react-toastify";
+import CustomModal from "../../components/CustomModal";
+import LoaderSpinner from "../../components/Loader";
 
 const KHALTI = "Khalti";
 
@@ -47,7 +50,9 @@ const AppointmentPage = ({ page }) => {
     description: "string",
     payment_medium: KHALTI,
   };
+  const [paymentLoading, setPaymentLoading] = useState(false);
   const [appointmentDetail, setAppointmentDetail] = useState(initialState);
+  const [showBookingSuccess, setBookingSuccess] = useState(false);
   const [defaultAppointment, setDefaultAppointment] = useState({
     title: "Caregiving",
     service: "caregiving",
@@ -78,9 +83,8 @@ const AppointmentPage = ({ page }) => {
               })
               .then(function (data) {
                 if (data) {
-                  toast.success(
-                    "Your booking using Khalti Payment is Successful",
-                  );
+                  setBookingSuccess(true);
+                  setPaymentLoading(false);
                 } else {
                   toast.error(JSON.stringify(data));
                 }
@@ -104,6 +108,7 @@ const AppointmentPage = ({ page }) => {
     let checkout = new KhaltiCheckout(config);
     // minimum transaction amount must be 10, i.e 1000 in paisa.
     checkout.show({ amount: 10000 });
+    setPaymentLoading(true);
   };
 
   const onSubmitHandler = (e) => {
@@ -118,9 +123,7 @@ const AppointmentPage = ({ page }) => {
             if (appointmentDetail.payment_medium === KHALTI) {
               intializKhaltiWeb(data.transaction);
             } else {
-              toast.success(
-                "Your Appointment booked successfully !!. Hope you love our service.",
-              );
+              setBookingSuccess(true);
             }
           } else {
             toast.error(JSON.stringify(data));
@@ -166,8 +169,27 @@ const AppointmentPage = ({ page }) => {
     }
   }, []);
 
+  const getMessageForServiceType = () => {
+    let defaultMessage = `${defaultAppointment?.detail?.user?.first_name}
+    ${defaultAppointment?.detail?.user?.last_name}
+    ${defaultAppointment?.detail?.speciality}`;
+    if (defaultAppointment.service === "labservices") {
+      defaultMessage = defaultAppointment?.detail?.name;
+    }
+    return defaultMessage;
+  };
+
   return (
     <LocationView>
+      <LoaderSpinner loading={paymentLoading} />
+      <CustomModal
+        title="Appointment Booked Successfully!"
+        imgSrc={BookingLogo}
+        message={`Your Booking for ${getMessageForServiceType()} have been registered for ${appointmentDetail?.start_date}.
+                     Thank you for choosing our service.`}
+        showModal={showBookingSuccess}
+        handleClose={() => setBookingSuccess(false)}
+      />
       <div className="card appointment-card">
         <div className="card-body">
           <h1 className="card-title">
@@ -232,10 +254,7 @@ const AppointmentPage = ({ page }) => {
               >
                 {SERVICE_TYPES.map((eachService, index) => (
                   <option value={eachService.value} key={index}>
-                    {eachService.name} -{" "}
-                    {defaultAppointment?.detail?.user?.first_name}{" "}
-                    {defaultAppointment?.detail?.user?.last_name} -{" "}
-                    {defaultAppointment?.detail?.speciality}
+                    {eachService.name} - {getMessageForServiceType()}
                   </option>
                 ))}
               </select>

@@ -40,7 +40,7 @@ const CaregivingDetail = () => {
     <>
       <div className="container parent-container caregiver-detail-container">
         <div className="row">
-          <div className="col-5 m-5">
+          <div className="col-6 p-5">
             <img
               src={LabImg3}
               className="img-thumbnail"
@@ -48,7 +48,7 @@ const CaregivingDetail = () => {
               height={600}
             />
           </div>
-          <div className="col-5 m-5">
+          <div className="col-6 p-5">
             <div className="card border-0 border-bottom border-primary shadow-sm text-cursor">
               <div className="card-body p-5">
                 <figure>

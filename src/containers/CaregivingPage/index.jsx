@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getAllCareGivers } from "../../services/http-request";
 import { caregivingData } from "../../utils/dummyData";
+import LoaderSpinner from "../../components/Loader";
 
 const CaregivingPage = () => {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ const CaregivingPage = () => {
 
   return (
     <>
+      <LoaderSpinner loading={caregivers.loading} />
       <div className="container parent-container">
         <div className="row justify-content-md-center">
           <div className="col-12">
