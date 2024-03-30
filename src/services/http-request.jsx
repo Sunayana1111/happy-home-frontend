@@ -27,8 +27,8 @@ export const registerUser = async (body) => {
   });
 };
 
-export const getUserDetail = async () => {
-  return await fetch(`${apiUrl}/account/user/${"seema" || ""}/`, {
+export const getUserDetail = async (username) => {
+  return await fetch(`${apiUrl}/account/user/${username ?? "admin1"}/`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -39,7 +39,7 @@ export const getUserDetail = async () => {
 };
 
 export const updateUserDetail = async ({ username, body }) => {
-  return await fetch(`${apiUrl}/account/user/${username || ""}/`, {
+  return await fetch(`${apiUrl}/account/user/${username ?? "admin1"}/`, {
     method: "PATCH",
     headers: {
       Accept: "application/json",

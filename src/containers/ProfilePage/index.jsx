@@ -35,7 +35,7 @@ const ProfilePage = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      updateUserDetail({ username: "seema", body: formValue })
+      updateUserDetail({ username, body: formValue })
         .then(function (res) {
           return res.json();
         })
