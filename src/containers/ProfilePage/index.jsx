@@ -98,7 +98,7 @@ const ProfilePage = () => {
               <input
                 type="text"
                 name="first_name"
-                maxLength="49"
+                maxLength="50"
                 className="form-control form-control-lg"
                 placeholder="Enter your first name"
                 onChange={handleOnChange}
@@ -111,7 +111,7 @@ const ProfilePage = () => {
               <input
                 type="text"
                 name="last_name"
-                maxLength="49"
+                maxLength="50"
                 className="form-control form-control-lg"
                 placeholder="Enter your last name"
                 value={formValue.last_name}
@@ -156,7 +156,7 @@ const ProfilePage = () => {
               <input
                 type="text"
                 name="phone"
-                maxLength="13"
+                maxLength="14"
                 className="form-control form-control-lg"
                 id="phoneInput"
                 value={formValue.phone}
@@ -169,7 +169,7 @@ const ProfilePage = () => {
               <input
                 type="text"
                 name="address"
-                maxLength="49"
+                maxLength="50"
                 value={formValue.address}
                 className="form-control form-control-lg"
                 placeholder="Enter your address"
@@ -184,7 +184,7 @@ const ProfilePage = () => {
               <input
                 type="text"
                 name="email"
-                maxLength="49"
+                maxLength="50"
                 value={formValue.email}
                 className="form-control form-control-lg"
                 placeholder="Enter your email"

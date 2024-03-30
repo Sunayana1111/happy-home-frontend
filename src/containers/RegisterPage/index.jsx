@@ -58,7 +58,7 @@ const RegisterPage = () => {
             <input
               type="text"
               name="first_name"
-              maxLength="49"
+              maxLength="50"
               className="form-control form-control-lg"
               placeholder="Enter your first name"
               onChange={handleOnChange}
@@ -70,7 +70,7 @@ const RegisterPage = () => {
             <input
               type="text"
               name="last_name"
-              maxLength="49"
+              maxLength="50"
               className="form-control form-control-lg"
               placeholder="Enter your last name"
               onChange={handleOnChange}
@@ -112,7 +112,7 @@ const RegisterPage = () => {
             <input
               type="text"
               name="phone"
-              maxLength="13"
+              maxLength="14"
               className="form-control form-control-lg"
               id="phoneInput"
               onChange={handleOnChange}
@@ -124,7 +124,7 @@ const RegisterPage = () => {
             <input
               type="text"
               name="address"
-              maxLength="49"
+              maxLength="50"
               className="form-control form-control-lg"
               placeholder="Enter your address"
               onChange={handleOnChange}
@@ -138,7 +138,7 @@ const RegisterPage = () => {
             <input
               type="text"
               name="username"
-              maxLength="49"
+              maxLength="50"
               className="form-control form-control-lg"
               placeholder="Enter username"
               onChange={handleOnChange}
@@ -150,7 +150,7 @@ const RegisterPage = () => {
             <input
               type="text"
               name="email"
-              maxLength="49"
+              maxLength="50"
               className="form-control form-control-lg"
               placeholder="Enter your email"
               onChange={handleOnChange}
@@ -164,7 +164,7 @@ const RegisterPage = () => {
             <input
               type="password"
               name="password"
-              maxLength="49"
+              maxLength="50"
               className="form-control form-control-lg"
               id="passwordInput"
               onChange={handleOnChange}
@@ -177,7 +177,7 @@ const RegisterPage = () => {
             <input
               type="password"
               name="password2"
-              maxLength="49"
+              maxLength="50"
               className="form-control form-control-lg"
               id="password2Input"
               onChange={handleOnChange}
