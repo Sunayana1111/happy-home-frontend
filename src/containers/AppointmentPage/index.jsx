@@ -213,6 +213,7 @@ const AppointmentPage = ({ page }) => {
               <input
                 type="text"
                 name="full_name"
+                maxLength="50"
                 className="form-control form-control-lg"
                 placeholder="Enter your fullname"
                 onChange={handleOnChange}
@@ -224,6 +225,7 @@ const AppointmentPage = ({ page }) => {
               <input
                 type="number"
                 name="phone"
+                maxLength="14"
                 className="form-control form-control-lg"
                 id="pageInput"
                 onChange={handleOnChange}
@@ -235,6 +237,7 @@ const AppointmentPage = ({ page }) => {
               <input
                 type="text"
                 name="address"
+                maxLength="50"
                 className="form-control form-control-lg"
                 id="pageInput"
                 onChange={handleOnChange}

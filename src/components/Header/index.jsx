@@ -7,10 +7,11 @@ import { toast } from "react-toastify";
 const Header = () => {
   const navigate = useNavigate();
   const isUserLoggedIn = getCookie("token");
+  const username = getCookie("username");
   const logout = () => {
     deleteCookie("token");
     deleteCookie("username");
-    localStorage.removeItem("book-detail")
+    localStorage.removeItem("book-detail");
     toast.success("Logged out successfully!");
     navigate("/login");
   };
@@ -86,7 +87,7 @@ const Header = () => {
                       aria-expanded="false"
                     >
                       <i className="bi bi-person-lock"></i>
-                      <span className="p-2">Account</span>
+                      <span className="p-2">{username ?? "Account"}</span>
                     </a>
                     <ul className="dropdown-menu">
                       <li>
