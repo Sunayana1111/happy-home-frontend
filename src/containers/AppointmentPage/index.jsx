@@ -56,18 +56,23 @@ const AppointmentPage = ({ page }) => {
 
   const intializKhaltiWeb = (data) => {
     console.log(data, "hello");
+    const { product_id, product_name, product_url, transaction_uuid } = data;
     let config = {
       // replace this key with yours
       publicKey: "test_public_key_f1fe71fff3ad4f50aaf6ee0f507546b2",
-      productIdentity: appointmentDetail.caregiver || "testing",
-      productName: appointmentDetail.service || "testing",
-      productUrl: `http://localhost:3000/lab-services/${params.uuid}/book-appointment`,
+      productIdentity: product_id || "testing",
+      productName: product_name || "testing",
+      productUrl: product_url,
       eventHandler: {
         onSuccess(payload) {
           // hit merchant api for initiating verfication
-          console.log(payload);
+          console.log(payload, "AFTER SUCCESS");
           try {
-            verifyKhaltiPayment(payload)
+            const verifyData = {
+              khalti_token: payload.token,
+              transaction_uuid: transaction_uuid,
+            };
+            verifyKhaltiPayment(verifyData)
               .then(function (res) {
                 return res.json();
               })
@@ -98,7 +103,7 @@ const AppointmentPage = ({ page }) => {
     };
     let checkout = new KhaltiCheckout(config);
     // minimum transaction amount must be 10, i.e 1000 in paisa.
-    checkout.show({ amount: 1000 });
+    checkout.show({ amount: 10000 });
   };
 
   const onSubmitHandler = (e) => {
@@ -109,12 +114,12 @@ const AppointmentPage = ({ page }) => {
           return res.json();
         })
         .then(function (data) {
-          if (data.appointment) {
+          if (data) {
             if (appointmentDetail.payment_medium === KHALTI) {
-              intializKhaltiWeb();
+              intializKhaltiWeb(data.transaction);
             } else {
               toast.success(
-                "Your booking is successful. Hope you love our service.",
+                "Your Appointment booked successfully !!. Hope you love our service.",
               );
             }
           } else {
