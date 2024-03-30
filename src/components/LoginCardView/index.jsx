@@ -30,6 +30,10 @@ const LoginCardView = ({ title, subTitle, children }) => {
               <h1 className="card-title">{title}</h1>
               {subTitle ? <p className="mb-5">{subTitle}</p> : ""}
               {children}
+              <a href="/" className="text-primary">
+                <i className="bi bi-arrow-left me-1"></i>
+                <span className="pl-2">Back to Homepage</span>
+              </a>
             </div>
           </div>
         </div>

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import LoginCardView from "../../components/LoginCardView";
 import { registerUser } from "../../services/http-request";
 import { toast } from "react-toastify";
-import { getCookie } from "../../utils/setCookie";
 
 const INITIAL_VALUE = {
   email: "",
@@ -21,7 +20,6 @@ const INITIAL_VALUE = {
 };
 
 const RegisterPage = () => {
-  const isUserLoggedIn = getCookie("token");
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState(INITIAL_VALUE);
 
@@ -187,18 +185,10 @@ const RegisterPage = () => {
         />
       </form>
       <span className="py-3 dashboard-container__introduction__already_account_text">
-        {isUserLoggedIn ? (
-          <a href="/" className="text-primary">
-            {" "}
-            <i className="bi bi-arrow-return-left"></i>
-            <span className="pl-5">Go Back to Homepage</span>
-          </a>
-        ) : (
-          <>
-            {" "}
-            Already have an account? <a href="/login">Login here</a>{" "}
-          </>
-        )}
+        <>
+          {" "}
+          Already have an account? <a href="/login">Login here</a>{" "}
+        </>
       </span>
     </LoginCardView>
   );

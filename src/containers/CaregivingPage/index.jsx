@@ -71,7 +71,7 @@ const CaregivingPage = () => {
                 <div className="card-body pt-5 px-5" title="Learn more">
                   <figure>
                     <img
-                      className="img-fluid rounded rounded-circle mb-4 border border-5"
+                      className="img-fluid rounded rounded mb-4 border border-5"
                       loading="lazy"
                       src={LabImg3}
                       alt=""

@@ -27,6 +27,29 @@ export const registerUser = async (body) => {
   });
 };
 
+export const getUserDetail = async () => {
+  return await fetch(`${apiUrl}/account/user/${"seema" || ""}/`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Token ${loggedInToken}`,
+    },
+  });
+};
+
+export const updateUserDetail = async ({ username, body }) => {
+  return await fetch(`${apiUrl}/account/user/${username || ""}/`, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Token ${loggedInToken}`,
+    },
+    body: JSON.stringify(body),
+  });
+};
+
 export const getAllLabServices = async () => {
   return await fetch(`${apiUrl}/core/lab-services/`, {
     method: "GET",

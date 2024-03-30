@@ -37,6 +37,7 @@ const LoginPage = () => {
         .then(function (data) {
           if (data.token) {
             setCookie("token", data.token, 15);
+            setCookie("username", data.username, 15);
             toast.success("User LoggedIn Successfully!");
             navigate("/");
           } else {
