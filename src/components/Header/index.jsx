@@ -9,6 +9,8 @@ const Header = () => {
   const isUserLoggedIn = getCookie("token");
   const logout = () => {
     deleteCookie("token");
+    deleteCookie("username");
+    localStorage.removeItem("book-detail")
     toast.success("Logged out successfully!");
     navigate("/login");
   };
