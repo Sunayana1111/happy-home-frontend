@@ -10,10 +10,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getCookie } from "../../utils/setCookie";
 import {
   bookAppointment,
-  initiateKhaltiPayment,
   verifyKhaltiPayment,
 } from "../../services/http-request";
 import { toast } from "react-toastify";
+
+const KHALTI = "Khalti";
 
 const SERVICE_TYPES = [
   {
@@ -36,31 +37,25 @@ const AppointmentPage = ({ page }) => {
       navigate("/login");
     }
   }, []);
-  const [selectedPaymentType, setPaymentType] = useState("");
   const initialState = {
-    fullname: "",
-    contact: "",
-    caregiver: "",
-    service: "",
+    appointment_for: "string",
+    full_name: "string",
+    phone: "string",
+    address: "string",
     start_date: "",
-    end_date: "",
-    paymentType: selectedPaymentType,
+    end_date: new Date().toISOString().split("T")[0],
+    description: "string",
+    payment_medium: KHALTI,
   };
-  console.log(initialState, "hello");
-
-  const [appointmentDetail, setAppointmentDetail] = useState({
-    caregiver: "",
-    service: "",
-    start_date: "",
-    end_date: "",
-  });
+  const [appointmentDetail, setAppointmentDetail] = useState(initialState);
   const [defaultAppointment, setDefaultAppointment] = useState({
     title: "Caregiving",
     service: "caregiving",
     detail: {},
   });
 
-  const intializKhaltiWeb = () => {
+  const intializKhaltiWeb = (data) => {
+    console.log(data, "hello");
     let config = {
       // replace this key with yours
       publicKey: "test_public_key_f1fe71fff3ad4f50aaf6ee0f507546b2",
@@ -106,25 +101,6 @@ const AppointmentPage = ({ page }) => {
     checkout.show({ amount: 1000 });
   };
 
-  const apiCallForKhalti = (appointmentBody) => {
-    try {
-      initiateKhaltiPayment(appointmentBody)
-        .then(function (res) {
-          return res.json();
-        })
-        .then(function (data) {
-          if (data) {
-            intializKhaltiWeb();
-          } else {
-            toast.error(JSON.stringify(data));
-          }
-        });
-    } catch (error) {
-      console.error("Error:", error);
-      toast.error(JSON.stringify(error));
-    }
-  };
-
   const onSubmitHandler = (e) => {
     e.preventDefault();
     try {
@@ -134,8 +110,8 @@ const AppointmentPage = ({ page }) => {
         })
         .then(function (data) {
           if (data.appointment) {
-            if (selectedPaymentType === "khalti") {
-              apiCallForKhalti({ appointment: data.appointment });
+            if (appointmentDetail.payment_medium === KHALTI) {
+              intializKhaltiWeb();
             } else {
               toast.success(
                 "Your booking is successful. Hope you love our service.",
@@ -151,10 +127,21 @@ const AppointmentPage = ({ page }) => {
     }
   };
   const handleOnChange = (event) => {
-    setAppointmentDetail({
+    const formInput = event.target.value;
+    let defaultValue = {
       ...appointmentDetail,
-      [event.target.name]: event.target.value,
-    });
+      [event.target.name]: formInput,
+    };
+    if (
+      defaultAppointment.service === "labservices" &&
+      event.target.name === "start_date"
+    ) {
+      defaultValue = {
+        ...defaultValue,
+        end_date: formInput,
+      };
+    }
+    setAppointmentDetail(defaultValue);
   };
 
   useEffect(() => {
@@ -167,7 +154,10 @@ const AppointmentPage = ({ page }) => {
       });
     }
     if (params) {
-      setAppointmentDetail({ ...appointmentDetail, caregiver: params.uuid });
+      setAppointmentDetail({
+        ...appointmentDetail,
+        appointment_for: params.uuid,
+      });
     }
   }, []);
 
@@ -191,11 +181,11 @@ const AppointmentPage = ({ page }) => {
             Fill the information to confirm your booking for selected services.
           </p>
           <form onSubmit={onSubmitHandler}>
-            {/* <div className="mb-3">
+            <div className="mb-3">
               <label className="form-label">Full Name</label>
               <input
                 type="text"
-                name="fullname"
+                name="full_name"
                 className="form-control form-control-lg"
                 placeholder="Enter your fullname"
                 onChange={handleOnChange}
@@ -206,18 +196,29 @@ const AppointmentPage = ({ page }) => {
               <label className="form-label">Contact</label>
               <input
                 type="number"
-                name="contact"
+                name="phone"
                 className="form-control form-control-lg"
                 id="pageInput"
                 onChange={handleOnChange}
                 placeholder="Enter Your contact number"
               />
-            </div> */}
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Address</label>
+              <input
+                type="text"
+                name="address"
+                className="form-control form-control-lg"
+                id="pageInput"
+                onChange={handleOnChange}
+                placeholder="Enter Your contact number"
+              />
+            </div>
             <div className="mb-3">
               <label className="form-label">Services Type</label>
               <select
                 className="form-select form-select-lg"
-                name="service"
+                name="description"
                 aria-label="Select Services"
                 disabled
                 onChange={handleOnChange}
@@ -256,7 +257,8 @@ const AppointmentPage = ({ page }) => {
                     type="date"
                     name="end_date"
                     className="form-control form-control-lg"
-                    min={new Date().toISOString().split("T")[0]}
+                    min={appointmentDetail.start_date}
+                    disabled={!appointmentDetail.start_date}
                     id="date"
                     onChange={handleOnChange}
                     placeholder="Enter Your Date"
@@ -269,18 +271,28 @@ const AppointmentPage = ({ page }) => {
             <label className="form-label">Select Payment Method: </label>
             <div className="mb-3 d-flex">
               <div
-                className={`form-check ml-5 ${selectedPaymentType === "khalti" && "active"}`}
+                className={`form-check ml-5 ${appointmentDetail.payment_medium === KHALTI && "active"}`}
                 role="presentation"
-                onClick={() => setPaymentType("khalti")}
+                onClick={() =>
+                  setAppointmentDetail({
+                    ...appointmentDetail,
+                    payment_medium: KHALTI,
+                  })
+                }
               >
                 <img src={KhaltiLogo} height="60" />
 
                 <span className="ml-5">Pay with Khalti</span>
               </div>
               <div
-                className={`form-check ml-5 ${selectedPaymentType === "cash" && "active"}`}
+                className={`form-check ml-5 ${appointmentDetail.payment_medium === "Cash" && "active"}`}
                 role="presentation"
-                onClick={() => setPaymentType("cash")}
+                onClick={() =>
+                  setAppointmentDetail({
+                    ...appointmentDetail,
+                    payment_medium: "Cash",
+                  })
+                }
               >
                 <img src={CashLogo} height="60" />
                 <span className="ml-5">Cash on Payment</span>

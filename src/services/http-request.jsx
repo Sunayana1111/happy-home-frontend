@@ -32,7 +32,6 @@ export const getAllLabServices = async () => {
     method: "GET",
     headers: {
       Accept: "application/json",
-      "X-CSRFToken": loggedInToken,
       "Content-Type": "application/json",
     },
   });
@@ -59,11 +58,12 @@ export const getCaregiverDetail = async (uuid) => {
 };
 
 export const bookAppointment = async (body) => {
-  return await fetch(`${apiUrl}/core/care-giver/book-appointment/`, {
+  return await fetch(`${apiUrl}/core/book-appointment/`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: `Token ${loggedInToken}`,
     },
     body: JSON.stringify(body),
   });
@@ -75,6 +75,7 @@ export const initiateKhaltiPayment = async (body) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: `Token ${loggedInToken}`,
     },
     body: JSON.stringify(body),
   });
@@ -86,6 +87,7 @@ export const verifyKhaltiPayment = async (body) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: `Token ${loggedInToken}`,
     },
     body: JSON.stringify(body),
   });

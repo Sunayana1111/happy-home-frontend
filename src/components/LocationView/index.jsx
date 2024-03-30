@@ -19,8 +19,8 @@ const LocationView = ({ children }) => {
   const kathmanduPosition = [27.7172, 85.324];
   return (
     <div className="row parent-container">
-      <div className="col-7 location-children">{children}</div>
-      <div className="col-5 location-map-view">
+      <div className="col-6 location-children">{children}</div>
+      <div className="col-6 location-map-view">
         <div className="card">
           <h2
             className="card-title"
@@ -32,7 +32,7 @@ const LocationView = ({ children }) => {
           <div
             className="card-body"
             style={{
-              height: "61.5vh",
+              height: "70vh",
               width: "100%",
               borderRadius: "25px",
               overflow: "hidden",
