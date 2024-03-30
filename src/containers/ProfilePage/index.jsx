@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/http-request";
 import { toast } from "react-toastify";
@@ -22,6 +22,12 @@ const INITIAL_VALUE = {
 const ProfilePage = () => {
   const isUserLoggedIn = getCookie("token");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isUserLoggedIn) {
+      navigate("/login");
+    }
+  });
   const [formValue, setFormValue] = useState(INITIAL_VALUE);
 
   const handleOnChange = (event) => {
