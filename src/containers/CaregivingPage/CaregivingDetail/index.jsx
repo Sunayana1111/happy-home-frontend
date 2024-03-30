@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import LabImg3 from "../../../assets/images/lab8.jpg";
+import LabImg3 from "../../../assets/images/nurse.jpg";
 import { getCaregiverDetail } from "../../../services/http-request";
 import "../style.scss";
 

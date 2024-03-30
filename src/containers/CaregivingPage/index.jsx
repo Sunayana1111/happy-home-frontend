@@ -1,4 +1,4 @@
-import LabImg3 from "../../assets/images/lab8.jpg";
+import LabImg3 from "../../assets/images/nurse.jpg";
 import "./style.scss";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
