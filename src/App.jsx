@@ -18,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AppointmentPage from "./containers/AppointmentPage";
 import CaregivingDetail from "./containers/CaregivingPage/CaregivingDetail";
 import ProfilePage from "./containers/ProfilePage";
+import AppointmentDetailPage from "./containers/AppointmentDetail";
 
 const App = () => {
   const location = useLocation();
@@ -32,7 +33,7 @@ const App = () => {
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/my-account" element={<ProfilePage />} />
-
+          <Route path="/my-appointments" element={<AppointmentDetailPage />} />
           {/* Index page for caregiving */}
           <Route path="/caregiving" element={<CaregivingPage />} />
           {/* Dynamic caregiving route */}

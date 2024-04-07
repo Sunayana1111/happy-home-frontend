@@ -97,6 +97,12 @@ const Header = () => {
                         </a>
                       </li>
                       <li>
+                        <a className="dropdown-item" href="/my-appointments">
+                          <i className="bi bi-journal-medical"></i>
+                          <span className="pl-5">My Appointments</span>
+                        </a>
+                      </li>
+                      <li>
                         <hr className="dropdown-divider" />
                       </li>
                       <li>

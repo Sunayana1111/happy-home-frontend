@@ -22,8 +22,11 @@ function CustomModal({ title, imgSrc, message, showModal, handleClose }) {
         <h2 className="mt-3">{title}</h2>
         <Image src={imgSrc} rounded height={300} />
         <h5 className="px-5">{message}</h5>
-        <Button variant="success mt-3 btn-lg" onClick={() => navigate("/")}>
-          Explore other services!
+        <Button
+          variant="success mt-3 btn-lg"
+          onClick={() => navigate("/my-appointments")}
+        >
+          View Your Appointments!
         </Button>
       </Modal.Body>
     </Modal>

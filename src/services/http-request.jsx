@@ -115,3 +115,14 @@ export const verifyKhaltiPayment = async (body) => {
     body: JSON.stringify(body),
   });
 };
+
+export const getAllMyAppointments = async () => {
+  return await fetch(`${apiUrl}/core/uer-appointments/`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Token ${loggedInToken}`,
+    },
+  });
+};
