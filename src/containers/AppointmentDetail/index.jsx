@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllMyAppointments } from "../../services/http-request";
@@ -179,6 +180,7 @@ const AppointmentDetailPage = () => {
     }
   });
   const [allAppointments, setAllAppointments] = useState([]);
+  console.log(allAppointments);
 
   useEffect(() => {
     try {
@@ -199,65 +201,118 @@ const AppointmentDetailPage = () => {
     }
   }, []);
 
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   const convertDate = (newDate) => {
     const dateObject = new Date(newDate);
-    return `${dateObject.toLocaleDateString()} ${dateObject.toLocaleTimeString()}`;
+    // Get year, month, day, hour, minute, and AM/PM separately
+    const year = dateObject.getFullYear().toString(); // Extract last two digits of the year
+    const month = monthNames[dateObject.getMonth()]; // Get month abbreviation from array
+    const day = ("0" + dateObject.getDate()).slice(-2); // Get day and pad with leading zero if needed
+    const formattedDateTime = `${day} ${month} ${year}`;
+    return formattedDateTime;
   };
-  console.log(isUserLoggedIn, "user loggedIn");
+
+  const getTime = (newDate) => {
+    const dateObject = new Date(newDate);
+    let hour = dateObject.getHours();
+    const minute = ("" + dateObject.getMinutes()).slice(-2); // Get minute and pad with leading zero if needed
+    const amPM = hour >= 12 ? "PM" : "AM"; // Determine AM/PM
+    hour = hour % 12 || 12; // Convert hour to 12-hour format
+    const formattedDateTime = `${hour}:${minute} ${amPM}`;
+    return formattedDateTime;
+  };
 
   return (
-    <div className="row parent-container d-flex justify-content-center align-items-center">
-      <div className="col-6 p-5 m-5">
-        <h2>My Appointments</h2>
-        {allAppointments ||
-          APPOINTMENT_DETAIL.map((eachAppointment) => (
-            <Card key={eachAppointment.uuid} className="mb-3">
-              <Card.Body>
-                <Card.Title>
-                  Appointment Booked for{" "}
-                  {eachAppointment.appointment_for === "caregiver_service"
-                    ? "Caregiver Service"
-                    : "Lab Services"}
-                </Card.Title>
-                <Card.Text>
-                  <div className="row">
-                    <div className="col-4">
-                      <img
-                        src={MyImage}
-                        className="rounded-circle mx-auto d-block mb-3"
-                        alt="ProfileImage"
-                        height={150}
-                        width={150}
-                      ></img>
-                    </div>
-                    <div className="col-8 d-flex flex-column justify-content-center">
-                      <p>
-                        Your Appointment for{" "}
-                        {convertDate(
-                          eachAppointment.on_date || eachAppointment.start_date,
-                        )}
-                      </p>
-                      <div>
-                        <Badge
-                          className="p-2"
-                          bg={
-                            String(eachAppointment.is_paid) === "true"
-                              ? "success"
-                              : "danger"
-                          }
-                        >
-                          {" "}
-                          {String(eachAppointment.is_paid) === "true"
-                            ? "Payment Success"
-                            : "Payment Pending"}
-                        </Badge>{" "}
-                      </div>
-                    </div>
+    <div className="row d-flex mt-5 justify-content-center align-items-center">
+      <div className="col-8 p-5 m-5">
+        <h2 className="mb-3">MY APPOINTMENT'S SCHEDULE</h2>
+        {(allAppointments || APPOINTMENT_DETAIL).map((eachAppointment) => (
+          <Card key={eachAppointment.uuid}>
+            <Card.Body>
+              <Card.Title className="card-title">
+                <p>
+                  <i className="bi bi-calendar2-check pr-5"></i>{" "}
+                  {convertDate(
+                    eachAppointment.on_date || eachAppointment.start_date,
+                  )}{" "}
+                  {eachAppointment?.end_date
+                    ? " - " + convertDate(eachAppointment.end_date)
+                    : ""}
+                </p>
+              </Card.Title>
+              <Card.Text>
+                <div className="row">
+                  <div className="col-3">
+                    <img
+                      src={MyImage}
+                      className="rounded-circle mx-auto d-block mb-3"
+                      alt="ProfileImage"
+                      height={150}
+                      width={150}
+                    ></img>
                   </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          ))}
+                  <div className="col-6 d-flex flex-column justify-content-center appointment-detail-col">
+                    <div>
+                      <b>Service Type:</b>{" "}
+                      {eachAppointment.appointment_for === "caregiver_service"
+                        ? "Caregiver Service"
+                        : "Lab Service"}{" "}
+                    </div>
+                    <div>
+                      <b>Scheduled Time:</b>{" "}
+                      {getTime(
+                        eachAppointment.on_date || eachAppointment.start_date,
+                      )}
+                    </div>
+                    {eachAppointment.appointment_for === "caregiver_service" ? (
+                      <div>
+                        <div>
+                          <b>Caregiver Name:</b>{" "}
+                          {eachAppointment.caregiver.user.first_name}{" "}
+                          {eachAppointment.caregiver.user.last_name}
+                        </div>
+                        <div>
+                          <b>Speciality:</b>{" "}
+                          {eachAppointment.caregiver.speciality}
+                        </div>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="col-2 d-flex flex-column justify-content-center appointment-detail-col">
+                    <Badge
+                      className="p-3"
+                      bg={
+                        String(eachAppointment.is_paid) === "true"
+                          ? "success"
+                          : "danger"
+                      }
+                    >
+                      {" "}
+                      {String(eachAppointment.is_paid) === "true"
+                        ? "Payment Success"
+                        : "Payment Pending"}
+                    </Badge>{" "}
+                  </div>
+                </div>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
       </div>
     </div>
   );
