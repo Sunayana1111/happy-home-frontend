@@ -45,3 +45,19 @@
   font-size: 20px !important;
   padding: 2rem !important;
 }
+
+/* Scrollbar Track */
+::-webkit-scrollbar {
+  width: 10px; /* width of the scrollbar */
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #737CA1; /* color of the thumb */
+  border-radius: 5px; /* roundness of the thumb */
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* color of the track */
+}

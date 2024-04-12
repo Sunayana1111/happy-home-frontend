@@ -5,7 +5,7 @@ import Badge from "react-bootstrap/Badge";
 import Card from "react-bootstrap/Card";
 import { toast } from "react-toastify";
 import { getCookie } from "../../utils/setCookie";
-import MyImage from "../../assets/images/book2.jpg";
+import MyImage from "../../assets/images/book4.jpg";
 import "./style.scss";
 
 const APPOINTMENT_DETAIL = [
@@ -30,7 +30,7 @@ const APPOINTMENT_DETAIL = [
     created_at: "2024-03-30T15:49:23.914379Z",
     appointment_for: "lab_service",
     on_date: "2024-04-01T00:00:00Z",
-    is_paid: false,
+    is_paid: true,
     service: 1,
   },
   {
@@ -38,7 +38,7 @@ const APPOINTMENT_DETAIL = [
     created_at: "2024-03-30T15:50:07.200033Z",
     appointment_for: "lab_service",
     on_date: "2024-04-01T00:00:00Z",
-    is_paid: false,
+    is_paid: true,
     service: 1,
   },
   {
@@ -112,7 +112,7 @@ const APPOINTMENT_DETAIL = [
     service: "string",
     start_date: "2024-04-05T00:00:00Z",
     end_date: "2024-05-03T00:00:00Z",
-    is_paid: false,
+    is_paid: true,
     caregiver: {
       uuid: "e4a8a549-9c7a-4b0c-ac8a-43461efffe8d",
       speciality: "Nepal Government Registered Nurse",
@@ -143,7 +143,7 @@ const APPOINTMENT_DETAIL = [
     service: "string",
     start_date: "2024-04-05T00:00:00Z",
     end_date: "2024-03-30T00:00:00Z",
-    is_paid: false,
+    is_paid: true,
     caregiver: {
       uuid: "e4a8a549-9c7a-4b0c-ac8a-43461efffe8d",
       speciality: "Nepal Government Registered Nurse",
@@ -207,48 +207,57 @@ const AppointmentDetailPage = () => {
 
   return (
     <div className="row parent-container d-flex justify-content-center align-items-center">
-      <div className="col-6 card p-5 m-5">
-        <h2>My Appoinment</h2>
-        {(allAppointments || APPOINTMENT_DETAIL).map((eachAppointment) => (
-          <Card key={eachAppointment.uuid} className="mb-3">
-            <Card.Header>
-              Your Appointment for{" "}
-              {convertDate(
-                eachAppointment.on_date || eachAppointment.start_date,
-              )}
-            </Card.Header>
-            <Card.Body>
-              <Card.Title>
-                Appointment Booked for{" "}
-                {eachAppointment.appointment_for === "caregiver_service"
-                  ? "Caregiver Service"
-                  : "Lab Services"}
-              </Card.Title>
-              <Card.Text>
-                <img
-                  src={MyImage}
-                  className="rounded-circle mx-auto d-block mb-3"
-                  alt="ProfileImage"
-                  height={200}
-                  width={200}
-                ></img>
-                Your Payment Status:{" "}
-                <Badge
-                  variant={
-                    String(eachAppointment.is_paid) === "true"
-                      ? "success"
-                      : "warning"
-                  }
-                >
-                  {" "}
-                  {String(eachAppointment.is_paid) === "true"
-                    ? "Payment Success"
-                    : "Payment Pending"}
-                </Badge>
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        ))}
+      <div className="col-6 p-5 m-5">
+        <h2>My Appointments</h2>
+        {allAppointments ||
+          APPOINTMENT_DETAIL.map((eachAppointment) => (
+            <Card key={eachAppointment.uuid} className="mb-3">
+              <Card.Body>
+                <Card.Title>
+                  Appointment Booked for{" "}
+                  {eachAppointment.appointment_for === "caregiver_service"
+                    ? "Caregiver Service"
+                    : "Lab Services"}
+                </Card.Title>
+                <Card.Text>
+                  <div className="row">
+                    <div className="col-4">
+                      <img
+                        src={MyImage}
+                        className="rounded-circle mx-auto d-block mb-3"
+                        alt="ProfileImage"
+                        height={150}
+                        width={150}
+                      ></img>
+                    </div>
+                    <div className="col-8 d-flex flex-column justify-content-center">
+                      <p>
+                        Your Appointment for{" "}
+                        {convertDate(
+                          eachAppointment.on_date || eachAppointment.start_date,
+                        )}
+                      </p>
+                      <div>
+                        <Badge
+                          className="p-2"
+                          bg={
+                            String(eachAppointment.is_paid) === "true"
+                              ? "success"
+                              : "danger"
+                          }
+                        >
+                          {" "}
+                          {String(eachAppointment.is_paid) === "true"
+                            ? "Payment Success"
+                            : "Payment Pending"}
+                        </Badge>{" "}
+                      </div>
+                    </div>
+                  </div>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          ))}
       </div>
     </div>
   );
