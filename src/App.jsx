@@ -19,11 +19,14 @@ import AppointmentPage from "./containers/AppointmentPage";
 import CaregivingDetail from "./containers/CaregivingPage/CaregivingDetail";
 import ProfilePage from "./containers/ProfilePage";
 import AppointmentDetailPage from "./containers/AppointmentDetail";
+import ChatroomPage from "./containers/ChatroomPage";
 
 const App = () => {
   const location = useLocation();
   const { pathname } = location;
   const hasHeaderFooter = !["/login", "/register"].includes(pathname);
+  const hasNoFooter = !["/chat"].includes(pathname);
+
   return (
     <div className="App">
       <ToastContainer />
@@ -52,10 +55,11 @@ const App = () => {
           />
           <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/chat" element={<ChatroomPage />} />
           <Route path="/help" element={<HelpPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-        {hasHeaderFooter ? <Footer /> : ""}
+        {hasHeaderFooter && hasNoFooter ? <Footer /> : ""}
       </div>
     </div>
   );
