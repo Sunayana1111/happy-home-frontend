@@ -126,3 +126,37 @@ export const getAllMyAppointments = async () => {
     },
   });
 };
+
+
+export const getAllChatUsers = async () => {
+  return await fetch(`${apiUrl}/chat/users/`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Token ${loggedInToken}`,
+    },
+  });
+};
+
+export const getAllChatRooms = async () => {
+  return await fetch(`${apiUrl}/chat/user/rooms/`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Token ${loggedInToken}`,
+    },
+  });
+};
+
+export const getAllChatRoomMessages = async (uuid) => {
+  return await fetch(`${apiUrl}/chat/room/${uuid}/get-message/`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Token ${loggedInToken}`,
+    },
+  });
+};

@@ -1,11 +1,12 @@
 /* eslint-disable no-undef */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import io from "socket.io-client";
+import chatEmpty from "../../assets/images/book2.jpg";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../utils/setCookie";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import Select from "react-select";
 import {
-  MessageSeparator,
   MainContainer,
   ChatContainer,
   MessageList,
@@ -13,15 +14,23 @@ import {
   MessageInput,
   Conversation,
   ConversationList,
-  TypingIndicator,
-  Search,
+  Avatar,
 } from "@chatscope/chat-ui-kit-react";
 import "./style.scss";
+import {
+  getAllChatRoomMessages,
+  getAllChatRooms,
+  getAllChatUsers,
+} from "../../services/http-request";
 
 const chatSocketUrl = process.env.REACT_APP_CHAT_SOCKET_URL;
 
 const ChatroomPage = () => {
   const isUserLoggedIn = getCookie("token");
+  const [allUsers, setUsers] = useState([]);
+  const [allChatrooms, setAllChatrooms] = useState([]);
+  const [allMessages, setAllMessages] = useState([]);
+  const [activeChat, setActiveChat] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,18 +38,101 @@ const ChatroomPage = () => {
       navigate("/login");
     }
   });
-  console.log(chatSocketUrl, "chatsocket url");
 
   useEffect(() => {
-    const socket = io(chatSocketUrl); // Replace with your server URL
-
-    // Event listeners or any other socket-related logic
-    console.log(socket, "socket connected");
+    const socket = io(`${chatSocketUrl}?${isUserLoggedIn}`);
+    console.log(chatSocketUrl, "CHATSOCKET URL");
+    // Listen for incoming messages
+    socket.on("message", (message) => {
+      console.log(message);
+    });
 
     return () => {
-      socket.disconnect(); // Clean up on component unmount
+      socket.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    try {
+      getAllChatUsers()
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (data) {
+          if (data) {
+            const allOptions = data.map((eachData) => ({
+              value: eachData.username,
+              label: `${eachData.first_name + eachData.last_name + " ("}${eachData.username + ")"}`,
+            }));
+            setUsers(allOptions);
+          } else {
+            toast.error(JSON.stringify(data));
+          }
+        });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(JSON.stringify(error));
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      getAllChatRooms()
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (data) {
+          if (data.length > 0) {
+            setActiveChat(data[0].uuid);
+            setAllChatrooms(data);
+          } else {
+            toast.error(JSON.stringify(data));
+          }
+        });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(JSON.stringify(error));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (activeChat) {
+      try {
+        getAllChatRoomMessages(activeChat)
+          .then(function (res) {
+            return res.json();
+          })
+          .then(function (data) {
+            if (data) {
+              setAllMessages(data);
+            } else {
+              toast.error(JSON.stringify(data));
+            }
+          });
+      } catch (error) {
+        console.error("Error:", error);
+        toast.error(JSON.stringify(error));
+      }
+    }
+  }, [activeChat]);
+
+  const handleSelectChange = (selectedOption) => {
+    console.log(selectedOption);
+  };
+
+  const NoMessage = () => (
+    <div className="no-message-div d-flex-column align-items-center justify-content-center">
+      <img
+        className="card-img-top m-0"
+        loading="lazy"
+        src={chatEmpty}
+        height={250}
+        alt=""
+      />
+      <p className="text-center">No Messages Found</p>
+    </div>
+  );
+
   return (
     <div className="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center justify-content-center chat-container">
       <div className="col-8 chat-column">
@@ -61,56 +153,32 @@ const ChatroomPage = () => {
               <h5>My Conversations</h5>
             </div>
             <div className="p-4 border-bottom">
-              <Search placeholder="Search..." />
+              <Select
+                isSearchable
+                onChange={handleSelectChange}
+                options={allUsers}
+              />
             </div>
             <ConversationList style={{ height: "52vh", overflow: "auto" }}>
-              <Conversation
-                name="Lilly"
-                lastSenderName="Lilly"
-                info="Yes i can do it for you"
-              ></Conversation>
-
-              <Conversation
-                name="Joe"
-                lastSenderName="Joe"
-                info="Yes i can do it for you"
-              ></Conversation>
-
-              <Conversation
-                name="Emily"
-                lastSenderName="Emily"
-                info="Yes i can do it for you"
-              ></Conversation>
-
-              <Conversation
-                name="Kai"
-                lastSenderName="Kai"
-                info="Yes i can do it for you"
-              ></Conversation>
-
-              <Conversation
-                name="Akane"
-                lastSenderName="Akane"
-                info="Yes i can do it for you"
-              ></Conversation>
-
-              <Conversation
-                name="Eliot"
-                lastSenderName="Eliot"
-                info="Yes i can do it for you"
-              ></Conversation>
-
-              <Conversation
-                name="Zoe"
-                lastSenderName="Zoe"
-                info="Yes i can do it for you"
-              ></Conversation>
-
-              <Conversation
-                name="Patrik"
-                lastSenderName="Patrik"
-                info="Yes i can do it for you"
-              ></Conversation>
+              {allChatrooms.length > 0 ? (
+                <>
+                  {allChatrooms.map((eachRoom) => (
+                    <Conversation
+                      key={eachRoom.uuid}
+                      name={eachRoom.name}
+                      active={activeChat === eachRoom.uuid}
+                      info={eachRoom.last_message}
+                    >
+                      <Avatar
+                        name={eachRoom.name}
+                        src="https://chatscope.io/storybook/react/assets/lilly-aj6lnGPk.svg"
+                      />
+                    </Conversation>
+                  ))}
+                </>
+              ) : (
+                <NoMessage />
+              )}
             </ConversationList>
           </div>
           <div
@@ -132,11 +200,20 @@ const ChatroomPage = () => {
                 height: "64vh",
               }}
             >
-              <MessageList
-                typingIndicator={<TypingIndicator content="Joe is typing" />}
-              >
-                <MessageSeparator content={new Date().toDateString()} />
-
+              <MessageList>
+                {allMessages.map((eachMessage) => {
+                  <Message
+                    key={eachMessage.uuid}
+                    model={{
+                      message: "Hello my friend",
+                      sentTime: "15 mins ago",
+                      sender: "Joe",
+                      direction: "incoming",
+                      position: "normal",
+                    }}
+                    avatarSpacer
+                  />;
+                })}
                 <Message
                   model={{
                     message:
@@ -267,9 +344,6 @@ const ChatroomPage = () => {
                     position: "last",
                   }}
                 ></Message>
-
-                <MessageSeparator content="Saturday, 31 November 2019" />
-
                 <Message
                   model={{
                     message: "Hello my friend",
