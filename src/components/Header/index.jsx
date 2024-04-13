@@ -72,6 +72,12 @@ const Header = () => {
                   </a>
                 </li>
                 <li className="nav-item">
+                  <a className="nav-link" href="/chat">
+                    <i className="bi bi-chat-dots"></i>
+                    <span className="p-2">Chat</span>
+                  </a>
+                </li>
+                <li className="nav-item">
                   <a className="nav-link" href="/help">
                     <i className="bi bi-patch-question"></i>
                     <span className="p-2">Help</span>
