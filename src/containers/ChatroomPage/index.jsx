@@ -1,4 +1,6 @@
+/* eslint-disable no-undef */
 import { useEffect } from "react";
+import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../utils/setCookie";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
@@ -16,6 +18,8 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 import "./style.scss";
 
+const chatSocketUrl = process.env.REACT_APP_CHAT_SOCKET_URL;
+
 const ChatroomPage = () => {
   const isUserLoggedIn = getCookie("token");
   const navigate = useNavigate();
@@ -25,7 +29,18 @@ const ChatroomPage = () => {
       navigate("/login");
     }
   });
+  console.log(chatSocketUrl, "chatsocket url");
 
+  useEffect(() => {
+    const socket = io(chatSocketUrl); // Replace with your server URL
+
+    // Event listeners or any other socket-related logic
+    console.log(socket, "socket connected");
+
+    return () => {
+      socket.disconnect(); // Clean up on component unmount
+    };
+  }, []);
   return (
     <div className="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center justify-content-center chat-container">
       <div className="col-8 chat-column">

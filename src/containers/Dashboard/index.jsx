@@ -269,10 +269,13 @@ const Dashboard = () => {
                   data-bsb-star-off="0"
                 ></div>
                 <blockquote className="bsb-blockquote-icon mb-3">
-                  Nam ultricies, ex lacinia dapibus faucibus, sapien ipsum
-                  euismod massa, at aliquet erat turpis quis diam. className
-                  aptent taciti sociosqu ad litora torquent per conubia nostra,
-                  per inceptos himenaeos.
+                  I cant express enough gratitude for the caregiving services
+                  provided by Happy Home Care. From the moment they stepped into
+                  our home, their professionalism, compassion, and dedication
+                  were evident. They not only took exceptional care of my loved
+                  one but also provided emotional support to our entire family
+                  during a challenging time. I highly recommend Happy Home care
+                  to anyone in need of compassionate caregiving services
                 </blockquote>
                 <figure className="d-flex align-items-center m-0 p-0">
                   <img
@@ -283,7 +286,6 @@ const Dashboard = () => {
                   />
                   <figcaption className="ms-3">
                     <h4 className="mb-1 h5">Luna John</h4>
-                    <h5 className="fs-6 text-secondary mb-0">UX Designer</h5>
                   </figcaption>
                 </figure>
               </div>
@@ -298,10 +300,15 @@ const Dashboard = () => {
                   data-bsb-star-off="1"
                 ></div>
                 <blockquote className="bsb-blockquote-icon mb-3">
-                  Nam ultricies, ex lacinia dapibus faucibus, sapien ipsum
-                  euismod massa, at aliquet erat turpis quis diam. className
-                  aptent taciti sociosqu ad litora torquent per conubia nostra,
-                  per inceptos himenaeos.
+                  I recently used Happy home care lab services for my medical
+                  testing needs, and I couldnt be more impressed. The efficiency
+                  and accuracy of their lab services were outstanding. Not only
+                  did they provide quick results, but their staff also went
+                  above and beyond to ensure I felt comfortable throughout the
+                  process. Thanks to [Lab Services Company Name], I now have
+                  peace of mind knowing my health is in good hands. I highly
+                  recommend their services to anyone seeking reliable and
+                  professional lab testing.
                 </blockquote>
                 <figure className="d-flex align-items-center m-0 p-0">
                   <img
@@ -311,10 +318,7 @@ const Dashboard = () => {
                     alt=""
                   />
                   <figcaption className="ms-3">
-                    <h4 className="mb-1 h5">Mark Smith</h4>
-                    <h5 className="fs-6 text-secondary mb-0">
-                      Marketing Specialist
-                    </h5>
+                    <h4 className="mb-1 h5">Kedar Bahadur</h4>
                   </figcaption>
                 </figure>
               </div>
@@ -329,10 +333,14 @@ const Dashboard = () => {
                   data-bsb-star-off="2"
                 ></div>
                 <blockquote className="bsb-blockquote-icon mb-3">
-                  Nam ultricies, ex lacinia dapibus faucibus, sapien ipsum
-                  euismod massa, at aliquet erat turpis quis diam. className
-                  aptent taciti sociosqu ad litora torquent per conubia nostra,
-                  per inceptos himenaeos.
+                  Choosing Happy Home Care was the best decision we made for our
+                  family. Their team of caregivers provided exceptional support
+                  and care for our loved one, treating them with the utmost
+                  respect and kindness. Their dedication to improving the
+                  quality of life for those they serve is truly remarkable. We
+                  are forever grateful for the invaluable assistance and
+                  companionship they provided. Thank you, Happy Home Care, for
+                  your unwavering commitment to excellence.
                 </blockquote>
                 <figure className="d-flex align-items-center m-0 p-0">
                   <img
@@ -342,8 +350,7 @@ const Dashboard = () => {
                     alt=""
                   />
                   <figcaption className="ms-3">
-                    <h4 className="mb-1 h5">Michael Wilson</h4>
-                    <h5 className="fs-6 text-secondary mb-0">SEO Expert</h5>
+                    <h4 className="mb-1 h5">Ram Shrestha</h4>
                   </figcaption>
                 </figure>
               </div>
@@ -358,10 +365,14 @@ const Dashboard = () => {
                   data-bsb-star-off="0"
                 ></div>
                 <blockquote className="bsb-blockquote-icon mb-3">
-                  Nam ultricies, ex lacinia dapibus faucibus, sapien ipsum
-                  euismod massa, at aliquet erat turpis quis diam. className
-                  aptent taciti sociosqu ad litora torquent per conubia nostra,
-                  per inceptos himenaeos.
+                  I cant thank Happy Home Care enough for their exceptional lab
+                  services. From the moment I walked into their facility, I was
+                  greeted with professionalism and warmth. The entire process,
+                  from sample collection to receiving results, was seamless and
+                  efficient. Their state-of-the-art equipment and knowledgeable
+                  staff instilled confidence in the accuracy of my test results.
+                  I highly recommend Happy Home Care to anyone in need of
+                  reliable and timely lab testing.
                 </blockquote>
                 <figure className="d-flex align-items-center m-0 p-0">
                   <img
@@ -371,8 +382,7 @@ const Dashboard = () => {
                     alt=""
                   />
                   <figcaption className="ms-3">
-                    <h4 className="mb-1 h5">Luke Reeves</h4>
-                    <h5 className="fs-6 text-secondary mb-0">Sales Manager</h5>
+                    <h4 className="mb-1 h5">Shanti Maharjan</h4>
                   </figcaption>
                 </figure>
               </div>
