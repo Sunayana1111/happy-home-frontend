@@ -30,7 +30,11 @@ const Dashboard = () => {
             that feels like home.
           </p>
           <div className="d-flex align-items-center">
-            <a className="btn btn-success btn-lg" href="/login" role="button">
+            <a
+              className="btn btn-success btn-lg"
+              href={storedToken ? "/caregiving" : "/login"}
+              role="button"
+            >
               <b> Book Your Appointment</b>
             </a>
             {!storedToken ? (

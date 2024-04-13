@@ -5,14 +5,27 @@
 .appointment-detail-col {
   font-size: 1.3rem;
 }
-.card {
-  border: none;
+
+.appointment-card {
+  padding: 0;
 }
-.card-title {
-  padding: 1rem 0 0.5rem 1rem;
-  background-color: powderblue;
+.appointment-card-container {
+  min-height: 50vh;
+
+  .card {
+    border: none;
+  }
+  .card-title {
+    padding: 1rem 0 0.5rem 1rem;
+    background-color: powderblue;
+  }
+
+  .card-body {
+    padding: 0;
+  }
 }
 
-.card-body {
-  padding: 0;
+.nodata-container {
+  padding-top: 3rem;
+  height: 35vh;
 }
