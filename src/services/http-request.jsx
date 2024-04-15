@@ -32,6 +32,7 @@ export const getUserDetail = async (username) => {
     method: "GET",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
       Authorization: `Token ${loggedInToken}`,
     },
@@ -43,6 +44,7 @@ export const updateUserDetail = async ({ username, body }) => {
     method: "PATCH",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
       Authorization: `Token ${loggedInToken}`,
     },
@@ -55,6 +57,7 @@ export const getAllLabServices = async () => {
     method: "GET",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
     },
   });
@@ -65,6 +68,7 @@ export const getAllCareGivers = async () => {
     method: "GET",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
     },
   });
@@ -75,6 +79,7 @@ export const getCaregiverDetail = async (uuid) => {
     method: "GET",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
     },
   });
@@ -85,6 +90,7 @@ export const bookAppointment = async (body) => {
     method: "POST",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
       Authorization: `Token ${loggedInToken}`,
     },
@@ -97,6 +103,7 @@ export const initiateKhaltiPayment = async (body) => {
     method: "POST",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
       Authorization: `Token ${loggedInToken}`,
     },
@@ -109,6 +116,7 @@ export const verifyKhaltiPayment = async (body) => {
     method: "POST",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
       Authorization: `Token ${loggedInToken}`,
     },
@@ -121,6 +129,7 @@ export const getAllMyAppointments = async () => {
     method: "GET",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
       Authorization: `Token ${loggedInToken}`,
     },
@@ -133,6 +142,7 @@ export const getAllChatUsers = async () => {
     method: "GET",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
       Authorization: `Token ${loggedInToken}`,
     },
@@ -144,6 +154,7 @@ export const getAllChatRooms = async () => {
     method: "GET",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
       Authorization: `Token ${loggedInToken}`,
     },
@@ -155,6 +166,7 @@ export const getAllChatRoomMessages = async (uuid) => {
     method: "GET",
     headers: {
       Accept: "application/json",
+      'ngrok-skip-browser-warning': 'true',
       "Content-Type": "application/json",
       Authorization: `Token ${loggedInToken}`,
     },

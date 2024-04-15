@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
 import { useEffect, useState } from "react";
-import io from "socket.io-client";
 import chatEmpty from "../../assets/images/book2.jpg";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../utils/setCookie";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import { toast } from "react-toastify";
 import Select from "react-select";
 import {
   MainContainer,
@@ -26,7 +26,7 @@ import {
 const chatSocketUrl = process.env.REACT_APP_CHAT_SOCKET_URL;
 
 const ChatroomPage = () => {
-  const isUserLoggedIn = getCookie("token");
+  const token = getCookie("token");
   const [allUsers, setUsers] = useState([]);
   const [allChatrooms, setAllChatrooms] = useState([]);
   const [allMessages, setAllMessages] = useState([]);
@@ -34,21 +34,22 @@ const ChatroomPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isUserLoggedIn) {
+    if (!token) {
       navigate("/login");
     }
   });
 
   useEffect(() => {
-    const socket = io(`${chatSocketUrl}?${isUserLoggedIn}`);
-    console.log(chatSocketUrl, "CHATSOCKET URL");
-    // Listen for incoming messages
-    socket.on("message", (message) => {
-      console.log(message);
+    const socketUrl = `${chatSocketUrl}?${token}`;
+    const socket = new WebSocket(socketUrl);
+    socket.addEventListener("open", () => {
+      console.log("Connected to custom WebSocket server");
     });
 
     return () => {
-      socket.disconnect();
+      socket.addEventListener("close", () => {
+        console.log("Disconnected from custom WebSocket server");
+      });
     };
   }, []);
 
