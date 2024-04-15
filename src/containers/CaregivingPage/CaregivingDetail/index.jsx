@@ -42,7 +42,7 @@ const CaregivingDetail = () => {
         <div className="row">
           <div className="col-6 p-5">
             <img
-              src={LabImg3}
+              src={caregiverDetail?.user?.profile?.profile_picture? caregiverDetail?.user?.profile?.profile_picture: LabImg3}
               className="img-thumbnail"
               alt="image data"
               height={600}
