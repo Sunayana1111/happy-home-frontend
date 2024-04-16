@@ -30,7 +30,7 @@ const ChatroomPage = () => {
   const [allUsers, setUsers] = useState([]);
   const [allChatrooms, setAllChatrooms] = useState([]);
   const [allMessages, setAllMessages] = useState([]);
-  const [activeChat, setActiveChat] = useState("");
+  const [activeChat, setActiveChat] = useState({ index: "", uuid: "" });
   const [activeUser, setActiveUser] = useState({
     value: "",
     label: "",
@@ -44,48 +44,6 @@ const ChatroomPage = () => {
       navigate("/login");
     }
   });
-
-  useEffect(() => {
-    // Establish WebSocket connection
-    const socketUrl = `${chatSocketUrl}?${token}`;
-    const ws = new WebSocket(socketUrl);
-    setSocket(ws);
-    // Set up event listeners
-    ws.onopen = () => {
-      console.log("Connected to WebSocket server");
-    };
-
-    ws.onmessage = (event) => {
-      console.log("Received message:", event.data);
-      // Handle incoming messages from the server
-      setMessage(event.data);
-    };
-
-    ws.onclose = () => {
-      console.log("Disconnected from WebSocket server");
-    };
-
-    // Cleanup function
-    return () => {
-      ws.close();
-    };
-  }, []);
-
-  const sendMessage = () => {
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      // Check if WebSocket connection is open
-      socket.send(
-        JSON.stringify({
-          text: message,
-          user: activeUser.value,
-        }),
-      );
-    } else {
-      console.log("WebSocket connection not established");
-    }
-  };
-
-  console.log(message, "message data");
 
   useEffect(() => {
     try {
@@ -118,7 +76,7 @@ const ChatroomPage = () => {
         })
         .then(function (data) {
           if (data.length > 0) {
-            setActiveChat(data[0].uuid);
+            setActiveChat({ index: 0, uuid: data[0].uuid });
             setAllChatrooms(data);
           } else {
             toast.error(JSON.stringify(data));
@@ -131,9 +89,71 @@ const ChatroomPage = () => {
   }, []);
 
   useEffect(() => {
+    // Establish WebSocket connection
+    const socketUrl = `${chatSocketUrl}?${token}`;
+    const ws = new WebSocket(socketUrl);
+    setSocket(ws);
+    // Set up event listeners
+    ws.onopen = () => {
+      console.log("Connected to WebSocket server");
+    };
+
+    ws.onmessage = (event) => {
+      // Handle incoming messages from the server
+      const objectData = JSON.parse(event.data);
+      if (objectData) {
+        const checkIfAlreadyExists = allChatrooms.findIndex(
+          (chat) => chat.uuid === objectData.room_uuid,
+        );
+        const updatedChatrooms = [...allChatrooms]; // Create a copy of allChatrooms array
+
+        if (checkIfAlreadyExists > -1) {
+          // Update existing chat room
+          updatedChatrooms[checkIfAlreadyExists].last_message = objectData.text;
+        } else {
+          // Create a new chat room entry
+          updatedChatrooms[activeChat.index].uuid = objectData.room_uuid;
+          updatedChatrooms[activeChat.index].last_message = objectData.text;
+        }
+
+        // Set the updated chat rooms and activate the chat room
+        setAllChatrooms(updatedChatrooms);
+        setAllMessages([...allMessages]);
+        setMessage(""); // Reset message input field if needed
+      }
+    };
+
+    ws.onclose = () => {
+      console.log("Disconnected from WebSocket server");
+    };
+
+    // Cleanup function
+    return () => {
+      ws.close();
+    };
+  }, []);
+
+  const sendMessage = () => {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      // Check if WebSocket connection is open
+      const stringData = {
+        text: message,
+      };
+      const jsonData = activeChat.uuid
+        ? { ...stringData, room_uuid: activeChat.uuid }
+        : { ...stringData, user: activeUser.value };
+      socket.send(JSON.stringify(jsonData));
+    } else {
+      console.log("WebSocket connection not established");
+    }
+  };
+
+  console.log(message, "message data");
+
+  useEffect(() => {
     if (activeChat) {
       try {
-        getAllChatRoomMessages(activeChat)
+        getAllChatRoomMessages(activeChat.uuid)
           .then(function (res) {
             return res.json();
           })
@@ -153,6 +173,15 @@ const ChatroomPage = () => {
 
   const handleSelectChange = (selectedOption) => {
     setActiveUser(selectedOption);
+    const addNewData = {
+      uuid: "",
+      name: selectedOption.value,
+      image: "",
+      last_message: "",
+    };
+    setAllChatrooms([addNewData, ...allChatrooms]);
+    setActiveChat({ index: 0, uuid: "" });
+    setAllMessages([]);
   };
 
   const NoMessage = () => (
@@ -197,13 +226,15 @@ const ChatroomPage = () => {
             <ConversationList style={{ height: "52vh", overflow: "auto" }}>
               {allChatrooms.length > 0 ? (
                 <>
-                  {allChatrooms.map((eachRoom) => (
+                  {allChatrooms.map((eachRoom, index) => (
                     <Conversation
                       key={eachRoom.uuid}
                       name={eachRoom.name}
-                      active={activeChat === eachRoom.uuid}
+                      active={activeChat.index === index}
                       info={eachRoom.last_message}
-                      onClick={() => setActiveChat(eachRoom.uuid)}
+                      onClick={() =>
+                        setActiveChat({ index, uuid: eachRoom.uuid })
+                      }
                     >
                       <Avatar
                         name={eachRoom.name}
