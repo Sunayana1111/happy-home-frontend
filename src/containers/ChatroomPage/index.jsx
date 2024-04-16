@@ -31,6 +31,12 @@ const ChatroomPage = () => {
   const [allChatrooms, setAllChatrooms] = useState([]);
   const [allMessages, setAllMessages] = useState([]);
   const [activeChat, setActiveChat] = useState("");
+  const [activeUser, setActiveUser] = useState({
+    value: "",
+    label: "",
+  });
+  const [message, setMessage] = useState("");
+  const [socket, setSocket] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,18 +46,46 @@ const ChatroomPage = () => {
   });
 
   useEffect(() => {
+    // Establish WebSocket connection
     const socketUrl = `${chatSocketUrl}?${token}`;
-    const socket = new WebSocket(socketUrl);
-    socket.addEventListener("open", () => {
-      console.log("Connected to custom WebSocket server");
-    });
+    const ws = new WebSocket(socketUrl);
+    setSocket(ws);
+    // Set up event listeners
+    ws.onopen = () => {
+      console.log("Connected to WebSocket server");
+    };
 
+    ws.onmessage = (event) => {
+      console.log("Received message:", event.data);
+      // Handle incoming messages from the server
+      setMessage(event.data);
+    };
+
+    ws.onclose = () => {
+      console.log("Disconnected from WebSocket server");
+    };
+
+    // Cleanup function
     return () => {
-      socket.addEventListener("close", () => {
-        console.log("Disconnected from custom WebSocket server");
-      });
+      ws.close();
     };
   }, []);
+
+  const sendMessage = () => {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      // Check if WebSocket connection is open
+      socket.send(
+        JSON.stringify({
+          text: message,
+          user: activeUser.value,
+        }),
+      );
+    } else {
+      console.log("WebSocket connection not established");
+    }
+  };
+
+  console.log(message, "message data");
 
   useEffect(() => {
     try {
@@ -104,8 +138,8 @@ const ChatroomPage = () => {
             return res.json();
           })
           .then(function (data) {
-            if (data) {
-              setAllMessages(data);
+            if (data.results) {
+              setAllMessages(data.results);
             } else {
               toast.error(JSON.stringify(data));
             }
@@ -118,7 +152,7 @@ const ChatroomPage = () => {
   }, [activeChat]);
 
   const handleSelectChange = (selectedOption) => {
-    console.log(selectedOption);
+    setActiveUser(selectedOption);
   };
 
   const NoMessage = () => (
@@ -169,6 +203,7 @@ const ChatroomPage = () => {
                       name={eachRoom.name}
                       active={activeChat === eachRoom.uuid}
                       info={eachRoom.last_message}
+                      onClick={() => setActiveChat(eachRoom.uuid)}
                     >
                       <Avatar
                         name={eachRoom.name}
@@ -202,263 +237,30 @@ const ChatroomPage = () => {
               }}
             >
               <MessageList>
-                {allMessages.map((eachMessage) => {
-                  <Message
-                    key={eachMessage.uuid}
-                    model={{
-                      message: "Hello my friend",
-                      sentTime: "15 mins ago",
-                      sender: "Joe",
-                      direction: "incoming",
-                      position: "normal",
-                    }}
-                    avatarSpacer
-                  />;
-                })}
-                <Message
-                  model={{
-                    message:
-                      "Hello my friend, this has been a great help for me",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "single",
-                  }}
-                >
-                  {" "}
-                  <Message.Footer
-                    sender="Emily"
-                    sentTime={new Date().toDateString()}
-                  />
-                </Message>
-
-                <Message
-                  model={{
-                    message:
-                      "The project was great and I am looking for ward to it",
-                    sentTime: "15 mins ago",
-                    sender: "Seema",
-                    direction: "outgoing",
-                    position: "single",
-                  }}
-                >
-                  {" "}
-                  <Message.Footer
-                    sender="Raj"
-                    sentTime={new Date().toDateString()}
-                  />
-                </Message>
-
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "first",
-                  }}
-                  avatarSpacer
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "normal",
-                  }}
-                  avatarSpacer
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "normal",
-                  }}
-                  avatarSpacer
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "last",
-                  }}
-                ></Message>
-
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Seema",
-                    direction: "outgoing",
-                    position: "first",
-                  }}
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Seema",
-                    direction: "outgoing",
-                    position: "normal",
-                  }}
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Seema",
-                    direction: "outgoing",
-                    position: "normal",
-                  }}
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Seema",
-                    direction: "outgoing",
-                    position: "last",
-                  }}
-                />
-
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "first",
-                  }}
-                  avatarSpacer
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "last",
-                  }}
-                ></Message>
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "single",
-                  }}
-                ></Message>
-
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Seema",
-                    direction: "outgoing",
-                    position: "single",
-                  }}
-                />
-
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "first",
-                  }}
-                  avatarSpacer
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "normal",
-                  }}
-                  avatarSpacer
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Seema",
-                    direction: "outgoing",
-                    position: "normal",
-                  }}
-                >
-                  <Message.Footer sender="Emily" sentTime="just now" />
-                </Message>
-
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Seema",
-                    direction: "outgoing",
-                    position: "first",
-                  }}
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Seema",
-                    direction: "outgoing",
-                    position: "normal",
-                  }}
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Seema",
-                    direction: "outgoing",
-                    position: "normal",
-                  }}
-                >
-                  <Message.Footer sender="Emily" sentTime="just now" />
-                </Message>
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Seema",
-                    direction: "outgoing",
-                    position: "last",
-                  }}
-                />
-
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "first",
-                  }}
-                  avatarSpacer
-                />
-                <Message
-                  model={{
-                    message: "Hello my friend",
-                    sentTime: "15 mins ago",
-                    sender: "Joe",
-                    direction: "incoming",
-                    position: "last",
-                  }}
-                >
-                  <Message.Footer sender="Emily" sentTime="just now" />
-                </Message>
+                {allMessages.length > 0
+                  ? allMessages.map((eachMessage) => (
+                      <Message
+                        key={eachMessage.uuid}
+                        model={{
+                          message: String(eachMessage.text),
+                          sentTime: "15 mins ago",
+                          sender: eachMessage.user.username,
+                          direction: eachMessage.self_message
+                            ? "outgoing"
+                            : "incoming",
+                          position: "normal",
+                        }}
+                      />
+                    ))
+                  : ""}
               </MessageList>
-              <MessageInput className="p-4" placeholder="Type message here" />
+              <MessageInput
+                className="p-4"
+                value={message}
+                onChange={(value) => setMessage(value)}
+                placeholder="Type message here"
+                onSend={sendMessage}
+              />
             </ChatContainer>
           </div>
         </MainContainer>
