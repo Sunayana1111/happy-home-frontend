@@ -21,6 +21,10 @@ const INITIAL_RESET_PASSWORD = {
 
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState({
+    otpSent: false,
+    resetPassword: false,
+  });
   const [formValue, setFormValue] = useState(INITIAL_VALUE);
   const [resetFormValue, setResetForm] = useState(INITIAL_RESET_PASSWORD);
   const [sentOTP, setOTPSent] = useState(false);
@@ -38,6 +42,7 @@ const ForgotPasswordPage = () => {
 
   const onSubmitEmailHandler = async (e) => {
     e.preventDefault();
+    setLoading({ ...loading, otpSent: true });
     try {
       forgotPasswordEmail(formValue)
         .then(function (res) {
@@ -45,6 +50,7 @@ const ForgotPasswordPage = () => {
         })
         .then(function (data) {
           if (data.message) {
+            setLoading({ ...loading, otpSent: false });
             toast.success(JSON.stringify(data.message));
             setFormValue(INITIAL_VALUE);
             setOTPSent(true);
@@ -60,6 +66,7 @@ const ForgotPasswordPage = () => {
 
   const onSubmitChangePasswordHandler = async (e) => {
     e.preventDefault();
+    setLoading({ ...loading, resetPassword: true });
     try {
       forgotPasswordReset(resetFormValue)
         .then(function (res) {
@@ -67,6 +74,7 @@ const ForgotPasswordPage = () => {
         })
         .then(function (data) {
           if (data.message) {
+            setLoading({ ...loading, resetPassword: false });
             toast.success(JSON.stringify(data.message));
             setResetForm(INITIAL_RESET_PASSWORD);
             setOTPSent(false);
@@ -100,7 +108,7 @@ const ForgotPasswordPage = () => {
           <div className="col-12 mb-3">
             <label className="form-label">Enter New Password</label>
             <input
-              type="text"
+              type="password"
               name="new_password"
               maxLength="50"
               className="form-control form-control-lg"
@@ -112,7 +120,7 @@ const ForgotPasswordPage = () => {
           <div className="col-12 mb-3">
             <label className="form-label">Enter Confirm Password</label>
             <input
-              type="text"
+              type="password"
               name="confirm_password"
               maxLength="50"
               className="form-control form-control-lg"
@@ -121,11 +129,20 @@ const ForgotPasswordPage = () => {
               required
             />
           </div>
-          <input
+          <button
             className="btn btn-primary btn-lg w-100 mt-2"
             type="submit"
-            value="Confirm"
-          />
+            disabled={loading.resetPassword}
+          >
+            {loading.resetPassword ? (
+              <div className="spinner-border text-light" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            ) : (
+              ""
+            )}{" "}
+            Update Password
+          </button>
         </form>
       ) : (
         <form onSubmit={onSubmitEmailHandler}>
@@ -141,11 +158,20 @@ const ForgotPasswordPage = () => {
               required
             />
           </div>
-          <input
+          <button
             className="btn btn-primary btn-lg w-100 mt-2"
             type="submit"
-            value="Confirm"
-          />
+            disabled={loading.otpSent}
+          >
+            {loading.otpSent ? (
+              <div className="spinner-border text-light" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            ) : (
+              ""
+            )}{" "}
+            Send OTP
+          </button>
         </form>
       )}
 
