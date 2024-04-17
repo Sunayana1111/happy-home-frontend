@@ -20,11 +20,14 @@ import CaregivingDetail from "./containers/CaregivingPage/CaregivingDetail";
 import ProfilePage from "./containers/ProfilePage";
 import AppointmentDetailPage from "./containers/AppointmentDetail";
 import ChatroomPage from "./containers/ChatroomPage";
+import ForgotPasswordPage from "./containers/ForgotPassword";
 
 const App = () => {
   const location = useLocation();
   const { pathname } = location;
-  const hasHeaderFooter = !["/login", "/register"].includes(pathname);
+  const hasHeaderFooter = !["/login", "/register", "/forgot-password"].includes(
+    pathname,
+  );
   const hasNoFooter = !["/chat"].includes(pathname);
 
   return (
@@ -55,6 +58,7 @@ const App = () => {
           />
           <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/chat" element={<ChatroomPage />} />
           <Route path="/help" element={<HelpPage />} />
           <Route path="*" element={<PageNotFound />} />

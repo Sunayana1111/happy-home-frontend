@@ -43,7 +43,7 @@ const ChatroomPage = () => {
     if (!token) {
       navigate("/login");
     }
-  });
+  }, [token]);
 
   useEffect(() => {
     try {
@@ -129,22 +129,28 @@ const ChatroomPage = () => {
 
     // Cleanup function
     return () => {
-      ws.close();
+      if (socket) {
+        socket.close();
+      }
     };
   }, []);
 
   const sendMessage = () => {
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      // Check if WebSocket connection is open
-      const stringData = {
-        text: message,
-      };
-      const jsonData = activeChat.uuid
-        ? { ...stringData, room_uuid: activeChat.uuid }
-        : { ...stringData, user: activeUser.value };
-      socket.send(JSON.stringify(jsonData));
-    } else {
-      console.log("WebSocket connection not established");
+    try {
+      if (socket && socket.readyState === WebSocket.OPEN) {
+        // Check if WebSocket connection is open
+        const stringData = { text: message };
+        const jsonData = activeChat.uuid
+          ? { ...stringData, room_uuid: activeChat.uuid }
+          : { ...stringData, user: activeUser.value };
+        socket.send(JSON.stringify(jsonData));
+        setMessage(""); // Clear message input
+      } else {
+        console.log("WebSocket connection not established");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast.error("Error sending message");
     }
   };
 

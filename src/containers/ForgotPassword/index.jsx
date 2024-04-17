@@ -1,27 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
-import "./style.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+// import { registerUser } from "../../services/http-request";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../services/http-request";
-import { toast } from "react-toastify";
 import LoginCardView from "../../components/LoginCardView";
-import { getCookie, setCookie } from "../../utils/setCookie";
+import { registerUser } from "../../services/http-request";
+import { toast } from "react-toastify";
 
 const INITIAL_VALUE = {
+  email: "",
   username: "",
-  password: "",
 };
 
-const LoginPage = () => {
+const ForgotPasswordPage = () => {
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState(INITIAL_VALUE);
-  const token = getCookie("token");
-
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-    }
-  }, []);
 
   const handleOnChange = (event) => {
     setFormValue({ ...formValue, [event.target.name]: event.target.value });
@@ -30,16 +22,15 @@ const LoginPage = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      loginUser(formValue)
+      registerUser(formValue)
         .then(function (res) {
           return res.json();
         })
         .then(function (data) {
-          if (data.token) {
-            setCookie("token", data.token, 15);
-            setCookie("username", data.username, 15);
-            toast.success("User LoggedIn Successfully!");
-            navigate("/");
+          if (data.message) {
+            toast.success(JSON.stringify(data.message));
+            setFormValue(INITIAL_VALUE);
+            navigate("/login");
           } else {
             toast.error(JSON.stringify(data));
           }
@@ -51,51 +42,46 @@ const LoginPage = () => {
   };
 
   return (
-    <LoginCardView
-      title="Login Page"
-      subTitle="Welcome to Homecare Login Page. Please enter your details to
-                  sign in to your account!"
-    >
-      <div className="d-flex justify-content-end">
-        <span className="py-3 dashboard-container__introduction__already_account_text">
-          Don't have an account? <a href="/register">Register here</a>
-        </span>
-      </div>
+    <LoginCardView title="Forgot Password" subTitle="">
       <form onSubmit={onSubmitHandler}>
-        <div className="mb-3">
+        <div className="col-12 mb-3 mt-3">
           <label className="form-label">Username</label>
           <input
             type="text"
             name="username"
+            maxLength="50"
             className="form-control form-control-lg"
-            placeholder="Enter your username"
+            placeholder="Enter username"
             onChange={handleOnChange}
             required
           />
         </div>
-        <div className="mb-3">
-          <label className="form-label">Password</label>
+        <div className="col-12 mb-3">
+          <label className="form-label">Email</label>
           <input
-            type="password"
-            name="password"
+            type="text"
+            name="email"
+            maxLength="50"
             className="form-control form-control-lg"
-            id="passwordInput"
+            placeholder="Enter your email"
             onChange={handleOnChange}
-            placeholder="Enter Password"
             required
           />
         </div>
         <input
           className="btn btn-primary btn-lg w-100 mt-2"
           type="submit"
-          value="Sign In"
+          value="Confirm"
         />
       </form>
       <span className="py-3 dashboard-container__introduction__already_account_text">
-        <a href="/forgot-password"> Forgot Password?</a>
+        <>
+          {" "}
+          Login with another account! <a href="/login">Login here</a>{" "}
+        </>
       </span>
     </LoginCardView>
   );
 };
 
-export default LoginPage;
+export default ForgotPasswordPage;
