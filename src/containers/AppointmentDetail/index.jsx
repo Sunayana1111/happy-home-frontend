@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { getCookie } from "../../utils/setCookie";
 import MyImage from "../../assets/images/book4.jpg";
 import "./style.scss";
+import { validateResponse } from "../../utils/validateResponse";
 
 const APPOINTMENT_DETAIL = [
   {
@@ -186,6 +187,7 @@ const AppointmentDetailPage = () => {
     try {
       getAllMyAppointments()
         .then(function (res) {
+          validateResponse(res);
           return res.json();
         })
         .then(function (data) {

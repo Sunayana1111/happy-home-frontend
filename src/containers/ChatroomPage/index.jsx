@@ -22,6 +22,7 @@ import {
   getAllChatRooms,
   getAllChatUsers,
 } from "../../services/http-request";
+import { validateResponse } from "../../utils/validateResponse";
 
 const chatSocketUrl = process.env.REACT_APP_CHAT_SOCKET_URL;
 
@@ -49,6 +50,7 @@ const ChatroomPage = () => {
     try {
       getAllChatUsers()
         .then(function (res) {
+          validateResponse(res);
           return res.json();
         })
         .then(function (data) {
@@ -72,6 +74,7 @@ const ChatroomPage = () => {
     try {
       getAllChatRooms()
         .then(function (res) {
+          validateResponse(res);
           return res.json();
         })
         .then(function (data) {
@@ -161,6 +164,7 @@ const ChatroomPage = () => {
       try {
         getAllChatRoomMessages(activeChat.uuid)
           .then(function (res) {
+            validateResponse(res);
             return res.json();
           })
           .then(function (data) {

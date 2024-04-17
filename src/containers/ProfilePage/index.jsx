@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { getCookie } from "../../utils/setCookie";
 import MyImage from "../../assets/images/user.jpg";
 import "./style.scss";
+import { validateResponse } from "../../utils/validateResponse";
 
 const INITIAL_VALUE = {
   email: "",
@@ -37,6 +38,7 @@ const ProfilePage = () => {
     try {
       updateUserDetail({ username, body: formValue })
         .then(function (res) {
+          validateResponse(res);
           return res.json();
         })
         .then(function (data) {

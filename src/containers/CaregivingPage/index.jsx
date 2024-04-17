@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { getAllCareGivers } from "../../services/http-request";
 import { caregivingData } from "../../utils/dummyData";
 import LoaderSpinner from "../../components/Loader";
+import { validateResponse } from "../../utils/validateResponse";
 
 const CaregivingPage = () => {
   const navigate = useNavigate();
@@ -18,11 +19,12 @@ const CaregivingPage = () => {
     try {
       getAllCareGivers()
         .then((res) => {
+          validateResponse(res);
           return res.json();
         })
         .then((data) => {
           if (data) {
-            console.log(data)
+            console.log(data);
             setCaregivers({
               loading: false,
               data,
@@ -71,22 +73,23 @@ const CaregivingPage = () => {
               <div className="card border-0 border-bottom border-primary shadow-sm text-cursor mb-5">
                 <div className="card-body pt-5 px-5" title="Learn more">
                   <figure>
-                    {each.user.profile.profile_picture?
-                    <img
-                    className="img-fluid rounded rounded mb-4 border border-5"
-                    loading="lazy"
-                    src={each.user.profile.profile_picture}
-                    style={{height: "200px", width: "200px"}}
-                    alt=""
-                  />: 
-                  <img
-                      className="img-fluid rounded rounded mb-4 border border-5"
-                      loading="lazy"
-                      src={LabImg3}
-                      alt=""
-                    />
-                  }
-                    
+                    {each.user.profile.profile_picture ? (
+                      <img
+                        className="img-fluid rounded rounded mb-4 border border-5"
+                        loading="lazy"
+                        src={each.user.profile.profile_picture}
+                        style={{ height: "200px", width: "200px" }}
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        className="img-fluid rounded rounded mb-4 border border-5"
+                        loading="lazy"
+                        src={LabImg3}
+                        alt=""
+                      />
+                    )}
+
                     <figcaption>
                       <div
                         className="bsb-ratings text-warning mb-3"

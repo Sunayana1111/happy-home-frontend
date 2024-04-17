@@ -16,6 +16,7 @@ import {
 import { toast } from "react-toastify";
 import CustomModal from "../../components/CustomModal";
 import LoaderSpinner from "../../components/Loader";
+import { validateResponse } from "../../utils/validateResponse";
 
 const KHALTI = "Khalti";
 
@@ -60,7 +61,6 @@ const AppointmentPage = ({ page }) => {
   });
 
   const intializKhaltiWeb = (data) => {
-    console.log(data, "hello");
     const { product_id, product_name, product_url, transaction_uuid } = data;
     let config = {
       // replace this key with yours
@@ -79,6 +79,7 @@ const AppointmentPage = ({ page }) => {
             };
             verifyKhaltiPayment(verifyData)
               .then(function (res) {
+                validateResponse(res);
                 return res.json();
               })
               .then(function (data) {
@@ -116,6 +117,7 @@ const AppointmentPage = ({ page }) => {
     try {
       bookAppointment(appointmentDetail)
         .then(function (res) {
+          validateResponse(res);
           return res.json();
         })
         .then(function (data) {

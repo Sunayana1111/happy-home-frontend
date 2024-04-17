@@ -6,15 +6,18 @@ import { getAllLabServices } from "../../services/http-request";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import LoaderSpinner from "../../components/Loader";
+import { validateResponse } from "../../utils/validateResponse";
 
 const LabServicesPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [allLabServices, setLabServices] = useState([]);
+  
   useEffect(() => {
     try {
       getAllLabServices()
         .then((res) => {
+          validateResponse(res);
           return res.json();
         })
         .then((data) => {

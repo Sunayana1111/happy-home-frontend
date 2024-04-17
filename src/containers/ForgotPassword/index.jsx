@@ -8,6 +8,7 @@ import {
   forgotPasswordReset,
 } from "../../services/http-request";
 import { toast } from "react-toastify";
+import { validateResponse } from "../../utils/validateResponse";
 
 const INITIAL_VALUE = {
   email: "",
@@ -46,6 +47,7 @@ const ForgotPasswordPage = () => {
     try {
       forgotPasswordEmail(formValue)
         .then(function (res) {
+          validateResponse(res);
           return res.json();
         })
         .then(function (data) {
@@ -70,6 +72,7 @@ const ForgotPasswordPage = () => {
     try {
       forgotPasswordReset(resetFormValue)
         .then(function (res) {
+          validateResponse(res);
           return res.json();
         })
         .then(function (data) {
