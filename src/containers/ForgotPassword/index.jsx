@@ -3,26 +3,43 @@ import { useState } from "react";
 // import { registerUser } from "../../services/http-request";
 import { useNavigate } from "react-router-dom";
 import LoginCardView from "../../components/LoginCardView";
-import { registerUser } from "../../services/http-request";
+import {
+  forgotPasswordEmail,
+  forgotPasswordReset,
+} from "../../services/http-request";
 import { toast } from "react-toastify";
 
 const INITIAL_VALUE = {
   email: "",
-  username: "",
+};
+
+const INITIAL_RESET_PASSWORD = {
+  otp: "",
+  new_password: "",
+  confirm_password: "",
 };
 
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState(INITIAL_VALUE);
+  const [resetFormValue, setResetForm] = useState(INITIAL_RESET_PASSWORD);
+  const [sentOTP, setOTPSent] = useState(false);
 
   const handleOnChange = (event) => {
     setFormValue({ ...formValue, [event.target.name]: event.target.value });
   };
 
-  const onSubmitHandler = async (e) => {
+  const handleOnChangeReset = (event) => {
+    setResetForm({
+      ...resetFormValue,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const onSubmitEmailHandler = async (e) => {
     e.preventDefault();
     try {
-      registerUser(formValue)
+      forgotPasswordEmail(formValue)
         .then(function (res) {
           return res.json();
         })
@@ -30,6 +47,29 @@ const ForgotPasswordPage = () => {
           if (data.message) {
             toast.success(JSON.stringify(data.message));
             setFormValue(INITIAL_VALUE);
+            setOTPSent(true);
+          } else {
+            toast.error(JSON.stringify(data));
+          }
+        });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(JSON.stringify(error));
+    }
+  };
+
+  const onSubmitChangePasswordHandler = async (e) => {
+    e.preventDefault();
+    try {
+      forgotPasswordReset(resetFormValue)
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (data) {
+          if (data.message) {
+            toast.success(JSON.stringify(data.message));
+            setResetForm(INITIAL_RESET_PASSWORD);
+            setOTPSent(false);
             navigate("/login");
           } else {
             toast.error(JSON.stringify(data));
@@ -43,37 +83,72 @@ const ForgotPasswordPage = () => {
 
   return (
     <LoginCardView title="Forgot Password" subTitle="">
-      <form onSubmit={onSubmitHandler}>
-        <div className="col-12 mb-3 mt-3">
-          <label className="form-label">Username</label>
+      {sentOTP ? (
+        <form onSubmit={onSubmitChangePasswordHandler}>
+          <div className="col-12 mb-3">
+            <label className="form-label">Enter OTP</label>
+            <input
+              type="text"
+              name="otp"
+              maxLength="50"
+              className="form-control form-control-lg"
+              placeholder="Enter the OTP sent in your mail"
+              onChange={handleOnChangeReset}
+              required
+            />
+          </div>
+          <div className="col-12 mb-3">
+            <label className="form-label">Enter New Password</label>
+            <input
+              type="text"
+              name="new_password"
+              maxLength="50"
+              className="form-control form-control-lg"
+              placeholder="Enter New Password"
+              onChange={handleOnChangeReset}
+              required
+            />
+          </div>
+          <div className="col-12 mb-3">
+            <label className="form-label">Enter Confirm Password</label>
+            <input
+              type="text"
+              name="confirm_password"
+              maxLength="50"
+              className="form-control form-control-lg"
+              placeholder="Enter Confirm Password"
+              onChange={handleOnChangeReset}
+              required
+            />
+          </div>
           <input
-            type="text"
-            name="username"
-            maxLength="50"
-            className="form-control form-control-lg"
-            placeholder="Enter username"
-            onChange={handleOnChange}
-            required
+            className="btn btn-primary btn-lg w-100 mt-2"
+            type="submit"
+            value="Confirm"
           />
-        </div>
-        <div className="col-12 mb-3">
-          <label className="form-label">Email</label>
+        </form>
+      ) : (
+        <form onSubmit={onSubmitEmailHandler}>
+          <div className="col-12 mb-3">
+            <label className="form-label">Email</label>
+            <input
+              type="text"
+              name="email"
+              maxLength="50"
+              className="form-control form-control-lg"
+              placeholder="Enter your email"
+              onChange={handleOnChange}
+              required
+            />
+          </div>
           <input
-            type="text"
-            name="email"
-            maxLength="50"
-            className="form-control form-control-lg"
-            placeholder="Enter your email"
-            onChange={handleOnChange}
-            required
+            className="btn btn-primary btn-lg w-100 mt-2"
+            type="submit"
+            value="Confirm"
           />
-        </div>
-        <input
-          className="btn btn-primary btn-lg w-100 mt-2"
-          type="submit"
-          value="Confirm"
-        />
-      </form>
+        </form>
+      )}
+
       <span className="py-3 dashboard-container__introduction__already_account_text">
         <>
           {" "}
