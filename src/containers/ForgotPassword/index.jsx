@@ -102,6 +102,7 @@ const ForgotPasswordPage = () => {
               type="text"
               name="otp"
               maxLength="50"
+              value={resetFormValue.otp}
               autoComplete="false"
               className="form-control form-control-lg"
               placeholder="Enter the OTP sent in your mail"
@@ -116,6 +117,7 @@ const ForgotPasswordPage = () => {
               name="new_password"
               maxLength="50"
               autoComplete="false"
+              value={resetFormValue.new_password}
               className="form-control form-control-lg"
               placeholder="Enter New Password"
               onChange={handleOnChangeReset}
@@ -127,6 +129,7 @@ const ForgotPasswordPage = () => {
             <input
               type="password"
               name="confirm_password"
+              value={resetFormValue.confirm_password}
               maxLength="50"
               autoComplete="false"
               className="form-control form-control-lg"

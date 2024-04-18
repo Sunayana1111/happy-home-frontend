@@ -179,7 +179,7 @@ const ChatroomPage = () => {
         toast.error(JSON.stringify(error));
       }
     }
-  }, [activeChat]);
+  }, [activeChat.uuid]);
 
   const handleSelectChange = (selectedOption) => {
     setActiveUser(selectedOption);
