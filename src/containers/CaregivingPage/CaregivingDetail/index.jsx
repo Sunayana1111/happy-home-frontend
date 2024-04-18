@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import LabImg3 from "../../../assets/images/nurse.jpg";
 import { getCaregiverDetail } from "../../../services/http-request";
 import "../style.scss";
+import { validateResponse } from "../../../utils/validateResponse";
 
 const CaregivingDetail = () => {
   const params = useParams();
@@ -15,6 +16,7 @@ const CaregivingDetail = () => {
       if (params.caregiverId) {
         getCaregiverDetail(params.caregiverId)
           .then((res) => {
+            validateResponse(res)
             return res.json();
           })
           .then((data) => {

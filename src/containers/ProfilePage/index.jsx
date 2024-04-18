@@ -57,6 +57,7 @@ const ProfilePage = () => {
     try {
       getUserDetail(username)
         .then(function (res) {
+          validateResponse(res)
           return res.json();
         })
         .then(function (data) {
