@@ -101,28 +101,22 @@ const ChatroomPage = () => {
       console.log("Connected to WebSocket server");
     };
 
+    console.log(allChatrooms, "data chatrooms");
+
     ws.onmessage = (event) => {
       // Handle incoming messages from the server
       const objectData = JSON.parse(event.data);
       if (objectData) {
-        const checkIfAlreadyExists = allChatrooms.findIndex(
-          (chat) => chat.uuid === objectData.room_uuid,
-        );
         const updatedChatrooms = [...allChatrooms]; // Create a copy of allChatrooms array
-
-        if (checkIfAlreadyExists > -1) {
-          // Update existing chat room
-          updatedChatrooms[checkIfAlreadyExists].last_message = objectData.text;
-        } else {
-          // Create a new chat room entry
-          updatedChatrooms[activeChat.index].uuid = objectData.room_uuid;
-          updatedChatrooms[activeChat.index].last_message = objectData.text;
+        const finalIndex = updatedChatrooms.length > 0 ? activeChat.index : 0;
+        if (objectData.room_uuid && !updatedChatrooms[finalIndex]?.uuid) {
+          updatedChatrooms[finalIndex].uuid = objectData.room_uuid;
+          updatedChatrooms[finalIndex].last_message = objectData.text;
+          // Set the updated chat rooms and activate the chat room
+          setAllChatrooms(updatedChatrooms);
         }
 
-        // Set the updated chat rooms and activate the chat room
-        setAllChatrooms(updatedChatrooms);
-        setAllMessages([...allMessages]);
-        setMessage(""); // Reset message input field if needed
+        setAllMessages([...allMessages, objectData]);
       }
     };
 
@@ -281,12 +275,12 @@ const ChatroomPage = () => {
                 {allMessages.length > 0
                   ? allMessages.map((eachMessage) => (
                       <Message
-                        key={eachMessage.uuid}
+                        key={eachMessage?.uuid}
                         model={{
-                          message: String(eachMessage.text),
+                          message: String(eachMessage?.text),
                           sentTime: "15 mins ago",
-                          sender: eachMessage.user.username,
-                          direction: eachMessage.self_message
+                          sender: eachMessage?.user?.username,
+                          direction: eachMessage?.self_message
                             ? "outgoing"
                             : "incoming",
                           position: "normal",
