@@ -160,7 +160,7 @@ const ChatroomPage = () => {
   console.log(message, "message data");
 
   useEffect(() => {
-    if (activeChat) {
+    if (activeChat.uuid) {
       try {
         getAllChatRoomMessages(activeChat.uuid)
           .then(function (res) {
