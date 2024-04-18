@@ -102,6 +102,7 @@ const ForgotPasswordPage = () => {
               type="text"
               name="otp"
               maxLength="50"
+              autoComplete="false"
               className="form-control form-control-lg"
               placeholder="Enter the OTP sent in your mail"
               onChange={handleOnChangeReset}
@@ -114,6 +115,7 @@ const ForgotPasswordPage = () => {
               type="password"
               name="new_password"
               maxLength="50"
+              autoComplete="false"
               className="form-control form-control-lg"
               placeholder="Enter New Password"
               onChange={handleOnChangeReset}
@@ -126,6 +128,7 @@ const ForgotPasswordPage = () => {
               type="password"
               name="confirm_password"
               maxLength="50"
+              autoComplete="false"
               className="form-control form-control-lg"
               placeholder="Enter Confirm Password"
               onChange={handleOnChangeReset}
@@ -138,9 +141,7 @@ const ForgotPasswordPage = () => {
             disabled={loading.resetPassword}
           >
             {loading.resetPassword ? (
-              <div className="spinner-border text-light" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
+              <div className="spinner-border text-light" role="status" />
             ) : (
               ""
             )}{" "}
@@ -167,9 +168,7 @@ const ForgotPasswordPage = () => {
             disabled={loading.otpSent}
           >
             {loading.otpSent ? (
-              <div className="spinner-border text-light" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
+              <div className="spinner-border text-light" role="status" />
             ) : (
               ""
             )}{" "}
