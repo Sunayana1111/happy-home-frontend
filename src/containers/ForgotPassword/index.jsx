@@ -78,7 +78,7 @@ const ForgotPasswordPage = () => {
         .then(function (data) {
           if (data.message) {
             setLoading({ ...loading, resetPassword: false });
-            toast.success(JSON.stringify(data.message));
+            toast.success("Your new password is updated. Please login with new credentials.");
             setResetForm(INITIAL_RESET_PASSWORD);
             setOTPSent(false);
             navigate("/login");
