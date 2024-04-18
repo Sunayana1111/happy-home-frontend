@@ -95,11 +95,11 @@ const RegisterPage = () => {
             <select
               className="form-select form-select-lg"
               name="gender"
-              aria-label="Enter Your Age"
+              aria-label="Select Your Gender"
               onChange={handleOnChange}
-              placeholder="Select you Gender"
+              placeholder="Select your Gender"
             >
-              <option selected>Enter Your Age</option>
+              <option selected>Select Your Gender</option>
               <option value="female">Female</option>
               <option value="male">Male</option>
               <option value="other">Other</option>

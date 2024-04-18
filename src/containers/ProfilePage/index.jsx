@@ -144,9 +144,9 @@ const ProfilePage = () => {
                 aria-label="Enter Your Gender"
                 value={formValue.gender}
                 onChange={handleOnChange}
-                placeholder="Select you Gender"
+                placeholder="Select your Gender"
               >
-                <option selected>Enter Your Age</option>
+                <option selected>Select your Gender</option>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
                 <option value="other">Other</option>
