@@ -142,6 +142,7 @@ const ChatroomPage = () => {
         .then(function (data) {
           if (data) {
             setActiveChat({ index: 0, uuid: data[0]?.uuid });
+            setActiveUser({ value: data[0]?.name, labe: data[0]?.name });
             setAllChatrooms(data);
           } else {
             toast.error(JSON.stringify(data));
@@ -195,6 +196,7 @@ const ChatroomPage = () => {
   }, [activeChat.uuid]);
 
   const handleSelectChange = (selectedOption) => {
+    console.log(selectedOption, "data");
     setActiveUser(selectedOption);
     const addNewData = {
       uuid: "",
@@ -256,9 +258,13 @@ const ChatroomPage = () => {
                       name={eachRoom.name}
                       active={activeChat.index === index}
                       info={eachRoom.last_message}
-                      onClick={() =>
-                        setActiveChat({ index, uuid: eachRoom.uuid })
-                      }
+                      onClick={() => {
+                        setActiveChat({ index, uuid: eachRoom.uuid });
+                        setActiveUser({
+                          value: eachRoom.name,
+                          label: eachRoom.name,
+                        });
+                      }}
                     >
                       <Avatar
                         name={eachRoom.name}
@@ -284,7 +290,7 @@ const ChatroomPage = () => {
                 height: "6vh",
               }}
             >
-              <h5>Conversations with Lily</h5>
+              <h5>Conversations with {activeUser?.value || "user"}</h5>
             </div>
             <ChatContainer
               style={{
