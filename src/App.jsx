@@ -19,7 +19,7 @@ import AppointmentPage from "./containers/AppointmentPage";
 import CaregivingDetail from "./containers/CaregivingPage/CaregivingDetail";
 import ProfilePage from "./containers/ProfilePage";
 import AppointmentDetailPage from "./containers/AppointmentDetail";
-import ChatroomPage from "./containers/ChatroomPage";
+import ChatroomPage from "./containers/Chatroom";
 import ForgotPasswordPage from "./containers/ForgotPassword";
 
 const App = () => {
